@@ -1,0 +1,102 @@
+<!-- 导航条 -->
+<view class="navbar">
+    <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">
+        {{item}}
+    </text>
+</view>
+<!-- 全部订单 -->
+<view hidden="{{currentTab!==0}}">
+    <view class="payment" wx:for="{{Unpaidlist}}" wx:for-item="item" wx:key="Unpaidlist" bindtap="onDetails">
+        <view class="payment_top">
+            <view>用气编号: {{item.CustomeId}}</view>
+            <view style="color: #2269d4;">{{item.OrderType}}</view>
+        </view>
+        <view class="payment_Middle">
+            <view>配送工: {{item.Opreator}}</view>
+            <view style="margin-top: 28rpx;">订单金额: ￥{{item.Price}}</view>
+        </view>
+        <view class="btnlist">
+            <view class="btn_left">放行</view>
+            <view class="btn_right">确定收款</view>
+        </view>
+    </view>
+    <!-- 已付 -->
+    <view class="payment" wx:for="{{paidlist}}" wx:for-item="item" wx:key="paidlist" bindtap="onDetails">
+        <view class="payment_top">
+            <view>用气编号: {{item.CustomeId}}</view>
+            <view style="color: #0EBC6C;">{{item.OrderType}}</view>
+        </view>
+        <view class="payment_Middle">
+            <view>配送工: {{item.Opreator}}</view>
+            <view style="margin-top: 28rpx;">订单金额: ￥{{item.Price}}</view>
+        </view>
+        <view class="btnlist">
+            <view class="btn_right">放行</view>
+        </view>
+    </view>
+</view>
+<!-- 未付 -->
+<view hidden="{{currentTab!==1}}">
+    <view class="payment" wx:for="{{Unpaidlist}}" wx:for-item="item" wx:key="Unpaidlist" bindtap="onDetails">
+        <view class="payment_top">
+            <view>用气编号: {{item.CustomeId}}</view>
+            <view style="color: #2269d4;">{{item.OrderType}}</view>
+        </view>
+        <view class="payment_Middle">
+            <view>配送工: {{item.Opreator}}</view>
+            <view style="margin-top: 28rpx;">订单金额: ￥{{item.Price}}</view>
+        </view>
+        <view class="btnlist">
+            <view class="btn_left">放行</view>
+            <view class="btn_right">确定收款</view>
+        </view>
+    </view>
+</view>
+<!-- 已付款 -->
+<view hidden="{{currentTab!==2}}">
+    <view class="payment" wx:for="{{paidlist}}" wx:for-item="item" wx:key="paidlist" bindtap="onDetails">
+        <view class="payment_top">
+            <view>用气编号: {{item.CustomeId}}</view>
+            <view style="color: #0EBC6C;">{{item.OrderType}}</view>
+        </view>
+        <view class="payment_Middle">
+            <view>配送工: {{item.Opreator}}</view>
+            <view style="margin-top: 28rpx;">订单金额: ￥{{item.Price}}</view>
+        </view>
+        <view class="btnlist">
+            <view class="btn_right">放行</view>
+        </view>
+    </view>
+</view>
+
+<!-- 放行 -->
+
+<view hidden="{{currentTab!==3}}">
+    <view class="payment" wx:for="{{paidlist1}}" wx:for-item="item" wx:key="paidlist" bindtap="onDetails">
+        <view class="payment_top">
+            <view>用气编号: {{item.CustomeId}}</view>
+            <view style="color: #0EBC6C;">{{item.OrderType}}</view>
+        </view>
+        <view class="payment_Middle">
+            <view>配送工: {{item.Opreator}}</view>
+            <view style="margin-top: 28rpx;">订单金额: ￥{{item.Price}}</view>
+        </view>
+        <view class="btnlist">
+            <view class="btn_right">放行</view>
+        </view>
+    </view>
+</view>
+
+<!--底部跳转 -->
+<view style='width:100%;height:120rpx;'></view>
+<view class='fonter_head'>
+  <view class='fonter' >
+    <image src='/imgs/111.png'></image>
+    <text  style='color:#2269d4'>订单收款</text>
+  </view>
+  <view></view>
+  <view class='fonter' bindtap='Statistics'>
+  <image src='/imgs/Statistics.png'></image>
+  <text>统计表单</text>
+  </view>
+</view>
