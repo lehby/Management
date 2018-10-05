@@ -85,7 +85,7 @@ Page({
     //问题描述
     MaintenanceDescription: "",
     // 预约时间
-    appointment: "立即出发",
+    appointment: "08:00",
     // 服务模式立即0预约10
     ServiceMode: "0",
     // 客户唯一id
@@ -96,6 +96,8 @@ Page({
     latitude: "",
     // 维修编码
     RepairLabelIds: "",
+    // 照片编号
+    PhotoIds:"",
     // 点击后的保修
     RepairLabel: [],
     // 渲染的保修列表
@@ -665,15 +667,24 @@ Page({
           app.Orderaddress.Phone = Phone//客户电话
           app.Orderaddress.Address = Address
           app.Orderaddress.GasNo = GasNo//用气编号
+          app.CustomerInfo = Repair
+          if (Name!==""){
+            _this.setData({
+              edit: true
+            })
+          }
+          if (Phone!==""){
+            _this.setData({
+              MaintenanceTelephone: Phone,
+            })
+          }
           _this.setData({
             MaintenanceName: Name,
-            MaintenanceTelephone: Phone,
             RepairAddress: Address,
             MaintenanceNumber: GasNo,
             customerid: Repair.CustomerId,
             longitude: Repair.CustomerLongitude,
             latitude: Repair.CustomerLatitude,
-            edit: true
           })
         }
       },
@@ -681,12 +692,13 @@ Page({
   },
   // 提交维修表单
   Submit: function () {
+    let _this=this
     // 预约时间拼接
     let Times = utils.formatTime1(new Date());
     let day = Times.slice(0, 10)
-    let Selectiontime = this.data.appointment
+    let Selectiontime = _this.data.appointment
     let Subscribe = day + " " + Selectiontime
-    if (!this.data.MaintenanceName || !this.data.MaintenanceTelephone || !this.data.RepairAddress) {
+    if (!_this.data.MaintenanceName || !_this.data.MaintenanceTelephone || !_this.data.RepairAddress) {
       wx.showToast({
         title: '信息不能为空',
         icon: 'success',
@@ -694,7 +706,7 @@ Page({
       })
       return false
     }
-    if (!this.data.MaintenanceDescription) {
+    if (!_this.data.MaintenanceDescription) {
       wx.showToast({
         title: '请输入问题描述',
         icon: 'success',
@@ -707,33 +719,46 @@ Page({
       data: {
         Sign: "",
         EnterpriseId: app.User.EnterpriseId,//企业唯一编号
-        CustomerId: this.data.customerid,//客户唯一编号
-        Contact: utils.Encryption(this.data.MaintenanceName),//联系人
-        Phone: utils.Encryption(this.data.MaintenanceTelephone),//联系电话
-        Address: utils.Encryption(this.data.RepairAddress),//联系地址
-        Longitude: this.data.longitude,//纬度
-        Latitude: this.data.latitude,//精度
-        ServiceMode: this.data.ServiceMode,//服务模式
+        CustomerId: _this.data.customerid,//客户唯一编号
+        Contact: utils.Encryption(_this.data.MaintenanceName),//联系人
+        Phone: utils.Encryption(_this.data.MaintenanceTelephone),//联系电话
+        Address: utils.Encryption(_this.data.RepairAddress),//联系地址
+        Longitude: _this.data.longitude,//纬度
+        Latitude: _this.data.latitude,//精度
+        ServiceMode: _this.data.ServiceMode,//服务模式
         SubscribeTime: Subscribe,//预约时间
-        ProblemDescription: this.data.MaintenanceDescription,//问题描述
+        ProblemDescription: _this.data.MaintenanceDescription,//问题描述
         UserId: app.User.UserId,//系统人员唯一编号
-        RepairLabelIds: this.data.RepairLabelIds,//维修项目编号
-        PhotoIds: "2",//照片编号
+        RepairLabelIds: _this.data.RepairLabelIds,//维修项目编号
+        PhotoIds: "",//照片编号
       },
       method: 'post',
       // header: {}, // 设置请求的 header
       success: function (res) {
         console.log(res)
         if (res.data.Code == 200) {
-          wx.redirectTo({
-            url: '/OperatorPages/pages/RepairOrder/RepairOrder',
-          })
           app.Orderaddress.Contact = ""
           app.Orderaddress.Phone = ""
           app.Orderaddress.Address = ""
           app.Orderaddress.Latitude = ""
           app.Orderaddress.Longitude = ""
           app.CustomerInfo = null
+          _this.setData({
+            MaintenanceNumber: "",
+            MaintenanceName: "",
+            MaintenanceTelephone: "",
+            RepairAddress: "",
+            MaintenanceDescription: "",
+            appointment: "08:00",
+            ServiceMode: "0",
+            customerid: "",
+            longitude: "",
+            latitude: "",
+            RepairLabelIds: "",
+            RepairLabel: [],
+            guaranteeList: [],
+            edit: false,
+          })
         } else {
           wx.showToast({
             title: "请从新提交",
@@ -785,6 +810,11 @@ Page({
           MaintenanceName: app.Orderaddress.Contact,
           MaintenanceNumber: app.Orderaddress.GasNo,
         })
+        if (app.CustomerInfo!==null){
+          this.setData({
+            customerid: app.CustomerInfo.CustomerId
+          })
+        }
       }
     }
     //********************************************维修订单信息*************************************//
