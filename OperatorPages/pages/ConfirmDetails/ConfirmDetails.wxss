@@ -1,0 +1,2 @@
+@import "../WaitconfirmDetails/WaitconfirmDetails.wxss";
+ @import "../../../lib/Operator.wxss";

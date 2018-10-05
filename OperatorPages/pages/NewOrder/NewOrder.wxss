@@ -1,0 +1,129 @@
+@import "../../../lib/Operator.wxss";
+
+.input_width {
+  margin-top:20rpx;
+  width: 750rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.text_color {
+  background-color: #3c75dd;
+  width: 22%;
+  font-size: 50rpx;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.orderList_address{
+  padding:20rpx;
+  display:flex;
+  font-size:28rpx;
+  background-color:#fff;
+  border-bottom:2rpx solid #ccc;
+}
+.orderList_address_right{
+  display: flex;
+}
+.text>textarea{
+  width: 568rpx;
+  height: 90rpx;
+  border: 2rpx solid;
+  margin-left: 20rpx;
+}
+
+/* 底部导航条 */
+
+.fonter_head {
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  width: 750rpx;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 6rpx;
+}
+
+.fonter {
+  display: flex;
+  flex-direction: column;
+  font-size: 25rpx;
+  align-items: center;
+}
+
+.fonter image {
+  width: 60rpx;
+  height: 60rpx;
+}
+/* 商品选择弹框 */
+.OptionsBox{
+  padding: 0 24rpx;
+  height: 100rpx;
+  display:flex;
+  justify-content: center;
+}
+.goodsList{
+  padding: 0 24rpx;
+  height: 108rpx;
+  display: flex;
+  justify-content: space-between;
+  line-height: 108rpx;
+  text-align: center;
+}
+.goodsList_text{
+  font-size: 24rpx;
+}
+.title{
+  display: flex;
+}
+.title>view{
+  width: 33.33%;
+  height: 90rpx;
+  text-align: center;
+  line-height: 90rpx;
+}
+.Counter{
+  width: 215rpx;
+  height: 55rpx;
+  border: 2rpx solid #999;
+  border-radius: 10rpx;
+  margin-top: 22rpx;
+  display: flex;
+  line-height: 55rpx;
+  text-align: center;
+}
+.Counter_left{
+  width: 66rpx;
+  height: 55rpx;
+  border-right: 2rpx solid #999;
+}
+.Counter_middle{
+  width: 79rpx;
+  height: 55rpx;
+  
+}
+.Counter_right{
+  border-left: 2rpx solid #999;
+  width: 66rpx;
+  height: 55rpx;
+}
+/* 维修标签 */
+.Problem {
+  display: flex;
+  padding: 10rpx 20rpx;
+  background-color: rgb(182, 179, 179);
+  color: white;
+  border-radius: 20rpx;
+  margin-right: 20rpx;
+  }
+  
+  .Probles {
+  display: flex;
+  padding: 10rpx 20rpx;
+  background-color: rgb(79, 107, 235);
+  border-radius: 20rpx;
+  margin-right: 20rpx;
+  }

@@ -1,0 +1,37 @@
+<!-- pages/Login.wxml -->
+<view class="user" style="margin-top: 174rpx;">
+    <view class="user_left">
+        <text>手机号</text>
+    </view>
+    <view class="user_right">
+        <input placeholder="请输入手机号" data-text="name" bindblur="userName" maxlength="11" />
+    </view>
+</view>
+<view class="user" style="margin-top: 54rpx;">
+    <view class="user_left">
+        <text>登录密码</text>
+    </view>
+    <view class="user_right">
+        <input placeholder="请输入密码" type="password" data-text="password" bindblur="password" />
+    </view>
+</view>
+<view class="user" style="margin-top: 52rpx;">
+    <view class="user_left">
+        <text>验证码</text>
+    </view>
+    <view class="user_right" style="width: 300rpx;">
+        <input placeholder="请输入验证码" style="width: 260rpx;" data-text="VerificationCode" bindblur="Verification" />
+    </view>
+    <view class="user_validate" bindtap="bindButtonTap">{{text}}</view>
+</view>
+<view class="loginBtn" style="margin-top: 70rpx;" bindtap="onLogin">登录</view>
+<view class="registerBtn" style="margin-top: 28rpx;" bindtap="Register"></view>
+<!-- 新用户弹窗 -->
+<view class="modal-mask" bindtap="hideModaltwo" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modal-dialog" wx:if="{{showModal}}">
+    <view class="modal-title"></view>
+    <view class="btn-Photograph" >请选择绑定用气编号</view>
+    <view class="btn-Number" style="border-top: 2rpx solid;" wx:for="{{EnterpriseNames}}" wx:key="EnterpriseNames" data-index="{{index}}" bindtap="Enterprise">{{item}}</view>
+    <view class="modal-footer">
+    </view>
+</view>

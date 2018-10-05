@@ -1,0 +1,65 @@
+{
+  "pages": [
+    "pages/Login/Login",
+    "pages/index/index",
+    "pages/ReceivingAddress/ReceivingAddress"
+  ],
+  "subPackages": [
+    {
+      "root": "CollectingSilverPages",
+      "pages": [
+        "pages/Home/Home"
+      ]
+    },
+    {
+      "root": "DispatchedPages",
+      "pages": [
+        "pages/Home/Home"
+      ]
+    },
+    {
+      "root": "OperatorPages",
+      "pages": [
+          "pages/NewOrder/NewOrder",
+          "pages/OrderList/OrderList",
+          "pages/RepairOrder/RepairOrder",
+          "pages/Login/Login",
+          "pages/WaitconfirmDetails/WaitconfirmDetails",
+          "pages/Statistics/Statistics",
+          "pages/ConfirmDetails/ConfirmDetails",
+          "pages/RepairUndetermined/RepairUndetermined",
+          "pages/RepairConfirm/RepairConfirm"
+      ]
+    },
+    {
+      "root": "StorehousePages",
+      "pages": [
+        "pages/Home/Home",
+        "pages/HomePage/HomePage",
+        "pages/ExhaustGas/ExhaustGas",
+        "pages/GasCollection/GasCollection",
+        "pages/DistributionWarehousing/DistributionWarehousing",
+        "pages/DistributionShipments/DistributionShipments",
+        "pages/WarehousingDetails/WarehousingDetails",
+        "pages/Warehousing/Warehousing",
+        "pages/Shipments/Shipments",
+        "pages/InventoryDetails/InventoryDetails",
+        "pages/Inventory/Inventory",
+        "pages/UnderBottle/UnderBottle",
+        "pages/EmptyBottle/EmptyBottle",
+        "pages/SelfUse/SelfUse",
+        "pages/ShipmentsDetails/ShipmentsDetails",
+        "pages/DistributionWarehousingDetails/DistributionWarehousingDetails",
+        "pages/DistributionShipmentsDetails/DistributionShipmentsDetails",
+        "pages/GasCollectionDetails/GasCollectionDetails",
+        "pages/SelfUseDetails/SelfUseDetails"
+      ]
+    }
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#2269d4",
+    "navigationBarTitleText": "经营端",
+    "navigationBarTextStyle": "#fff"
+  }
+}

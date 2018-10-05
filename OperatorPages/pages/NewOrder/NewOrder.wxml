@@ -1,0 +1,289 @@
+<!-- 导航条 -->
+<view class="navbar">
+  <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">
+    {{item}}
+  </text>
+</view>
+<!-- 新增订气 -->
+<view hidden="{{currentTab!==0}}">
+  <view class='input_width' wx:if="{{CustomerName}}">
+    <view style="width:78%">
+      <view class="orderList">
+        <view class="orderList_left">用气编号:</view>
+        <view class="orderList_right">
+          <input placeholder="请输入用气编号" type='text' data-text='identiflef' disabled="disabled" value='{{GasNo}}' />
+        </view>
+      </view>
+      <view class="orderList">
+        <view class="orderList_left">联系电话:</view>
+        <view class="orderList_right">
+          <input placeholder="请输入联系电话" type='number' maxlength="11" disabled="disabled" value='{{telephone}}' />
+        </view>
+      </view>
+    </view>
+    <view class='text_color'>
+      <text>搜索</text>
+    </view>
+  </view>
+  <!-- 查询无数据可修改状态 -->
+  <view class='input_width' wx:else>
+    <view style="width:78%">
+      <view class="orderList">
+        <view class="orderList_left">用气编号:</view>
+        <view class="orderList_right">
+          <input placeholder="请输入用气编号" type='text' data-text='identiflef' bindinput='Gasnumber' value='{{GasNo}}' />
+        </view>
+      </view>
+      <view class="orderList">
+        <view class="orderList_left">联系电话:</view>
+        <view class="orderList_right">
+          <input placeholder="请输入联系电话" type='number' maxlength="11" value='{{telephone}}' bindinput='telephone' />
+        </view>
+      </view>
+    </view>
+    <view class='text_color' bindtap='collecting'>
+      <text>搜索</text>
+    </view>
+  </view>
+  <view class="orderList">
+    <view class="orderList_left">订购人:</view>
+    <view class="orderList_right">
+      <input placeholder="请输入订购人" type='text' value='{{CustomerName}}' bindblur='Subscribers' />
+    </view>
+  </view>
+  <!-- 地址 -->
+  <view class="orderList_address" wx:if="{{CustomerAddress}}">
+    <view class="orderList_address_left">地址:</view>
+    <view class="orderList_address_right" bindtap="reselectionAddres">
+      <view class="text">
+        <textarea placeholder="请输入地址" type='text' value='{{CustomerAddress}}' bindblur='address' />
+      </view>
+      <view style="color: #AEAEAE;font-size: 60rpx;margin-left:10rpx;">></view>
+    </view>
+  </view>
+  <view class="GoodsList" bindtap="onAddres" wx:else>
+    <view class="GoodsList_left">地址</view>
+    <view class="GoodsList_right">
+      <view></view>
+      <view style="color: #AEAEAE;font-size: 60rpx;margin-left:10rpx;">></view>
+    </view>
+  </view>
+  <!-- 预定时间弹框 -->
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label" style="font-size: 28rpx;">预约时间</view>
+        <view class="content_right">></view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+          <view class="weui-input" style="margin-left:239rpx;">{{array[index]}}</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+  <!-- 预定那天弹框 -->
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label" style="font-size: 28rpx;">预约那天</view>
+        <view class="content_right">></view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindDayPickerChange" value="{{index1}}" range="{{array2}}">
+          <view class="weui-input" style="margin-left:239rpx;">{{array2[index1]}}</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+  <!-- 商品选择 -->
+  <view class="GoodsList" bindtap="ongoods">
+    <view class="GoodsList_left">商品选择</view>
+    <view class="GoodsList_right">
+      <view></view>
+      <view style="color: #AEAEAE;font-size: 60rpx;margin-left:10rpx;">></view>
+    </view>
+  </view>
+  <!-- 商品列表 -->
+  <view hidden="{{!isgoods}}">
+    <view class="goods" style="padding: 0 52rpx;border-bottom: 2rpx solid #eee;" wx:for='{{goods}}' wx:for-item="item" wx:key="good">
+      <view>{{item.ProductName}}</view>
+      <view>￥{{item.Price}}</view>
+      <view class="goods_right">
+        <view style="margin-left: 12rpx;">X{{item.Quantity}}</view>
+        <view class="goods_right_text"></view>
+      </view>
+    </view>
+    <!-- footer确定支付 -->
+    <view class="footer">
+      <view class="footer_left">共{{Quantity}}件商品,共￥{{Price}}</view>
+      <view class="footer_right" bindtap="ConfirmSuccess">确定提交</view>
+    </view>
+  </view>
+  <!-- 商品选择弹框 -->
+  <view class="modal-mask" bindtap="goodsHideModal" catchtouchmove="preventTouchMove" wx:if="{{showgoods}}"></view>
+  <view class="modal-dialog" wx:if="{{showgoods}}" style=" top:20%;">
+    <view class="modal-title"></view>
+    <view class="btn-Photograph">商品列表</view>
+    <view class="OptionsBox">
+      <radio-group name="radio-group" wx:for="{{OptionsBox}}" wx:key="OptionsBox" bindchange="OptionsBox">
+        <label>
+          <radio id="{{item.name}}" value="{{item.name}}" checked="{{item.checked}}" />
+          {{item.name}}
+        </label>
+      </radio-group>
+    </view>
+    <view class="title">
+      <view>商品名称</view>
+      <view>单价</view>
+      <view>瓶数</view>
+    </view>
+    <view class="goodsList" wx:for='{{goodslist}}' wx:for-item="item" wx:key="goodslist">
+      <view class="goodsList_text">{{item.ProductName}}</view>
+      <view class="goodsList_text">￥{{item.Price}}</view>
+      <view class="Counter">
+        <view class="Counter_left" data-index='{{index}}' catchtap='subtracttap'>-</view>
+        <view class="Counter_middle">
+          <view class='count' data-index='{{index}}' type='number' bindinput="Quantity">
+            {{item.Quantity}}
+          </view>
+        </view>
+        <view class="Counter_right" data-index="{{index}}" catchtap='addtap'>+</view>
+      </view>
+    </view>
+    <view class="modal-footer">
+      <view class="btn-cancel" bindtap="goodsCancel">取消</view>
+      <view class="btn-confirm" bindtap="goodsConfirm">确定</view>
+    </view>
+  </view>
+</view>
+<!-- 新增维修 -->
+<view hidden="{{currentTab!==1}}">
+  <!-- 可编辑input框 -->
+  <view class='input_width' wx:if="{{MaintenanceName}}">
+    <view>
+      <view class="orderList">
+        <view class="orderList_left">用气编号:</view>
+        <view class="orderList_right">
+          <input placeholder="请输入用气编号" disabled="disabled" type='text' value='{{MaintenanceNumber}}' />
+        </view>
+      </view>
+      <view class="orderList">
+        <view class="orderList_left">联系电话:</view>
+        <view class="orderList_right">
+          <input placeholder="请输入联系电话" disabled="disabled" value='{{MaintenanceTelephone}}' />
+        </view>
+      </view>
+    </view>
+    <view class='text_color'>
+      <text>搜索</text>
+    </view>
+  </view>
+  <!-- 不可编辑input框 -->
+  <view class='input_width' wx:else>
+    <view>
+      <view class="orderList">
+        <view class="orderList_left">用气编号:</view>
+        <view class="orderList_right">
+          <input placeholder="请输入用气编号" type='text' value='{{MaintenanceNumber}}' bindinput='MaintenanceNumber' />
+        </view>
+      </view>
+      <view class="orderList">
+        <view class="orderList_left">联系电话:</view>
+        <view class="orderList_right">
+          <input placeholder="请输入联系电话" value='{{MaintenanceTelephone}}' bindinput='MaintenanceTelephone' />
+        </view>
+      </view>
+    </view>
+    <view class='text_color' bindtap='collectingCable'>
+      <text>搜索</text>
+    </view>
+  </view>
+  <view class="orderList">
+    <view class="orderList_left">申报人:</view>
+    <view class="orderList_right">
+      <input placeholder="请输入申报人" type='text' value='{{MaintenanceName}}' bindblur='MaintenanceName' />
+    </view>
+  </view>
+  <!-- 地址 -->
+  <view class="orderList_address" wx:if="{{edit}}">
+    <view class="orderList_address_left">维修地址:</view>
+    <view class="orderList_address_right" bindtap="reselectionRepair">
+      <view class="text">
+        <textarea placeholder="请输入维修地址" value='{{RepairAddress}}' bindblur='RepairAddress' />
+      </view>
+      <view style="color: #AEAEAE;font-size: 60rpx;margin-left:10rpx;">></view>
+    </view>
+  </view>
+  <view class="GoodsList" bindtap="onRepairAddres" wx:else>
+    <view class="GoodsList_left">维修地址:</view>
+    <view class="GoodsList_right">
+      <view></view>
+      <view style="color: #AEAEAE;font-size: 60rpx;margin-left:10rpx;">></view>
+    </view>
+  </view>
+  <!-- 预定时间弹框 -->
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label" style="font-size: 28rpx;">预约时间</view>
+        <view class="content_right">></view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+          <view class="weui-input" style="margin-left:239rpx;">{{array[index]}}</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+  <!-- 预定那天弹框 -->
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label" style="font-size: 28rpx;">预约那天</view>
+        <view class="content_right">></view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindDayPickerChange" value="{{index1}}" range="{{array2}}">
+          <view class="weui-input" style="margin-left:239rpx;">{{array2[index1]}}</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+  <view class="Repair">
+    <view style="margin:10rpx 0rpx 20rpx 20rpx;">维修项目</view>
+    <view class="RepairProblem">
+      <view class=" Problem {{item.Enabled ? '' : 'Probles' }}" bindtap="Discoloration" data-index='{{item.ID}}' wx:for="{{guaranteeList}}" wx:for-item="item" wx:key="guaranteeList">
+        {{item.Name}}
+      </view>
+    </view>
+    <form bindsubmit="formSubmit">
+      <view class="page-section">
+        <view class="textarea-wrp">
+          <textarea style='padding:20rpx 10rpx;' auto-focus="true" value='{{MaintenanceDescription}}' placeholder="具体描述一下问题所在" />
+        </view>
+      </view>
+      <button class="submit" formType="submit" bindtap="Submit">提交</button>
+    </form>
+  </view>
+</view>
+<!-- 底部 -->
+<view style='width:100%;height:120rpx;'></view>
+<view class='fonter_head'>
+  <view class='fonter'>
+    <image src='../../imgs/order1.png'></image>
+    <text style='color:#2269d4'>新增订单</text>
+  </view>
+  <view class='fonter' bindtap='Booting'>
+    <image src='../../imgs/list.png'></image>
+    <text>订气订单</text>
+  </view>
+  <view class='fonter' bindtap='Repair'>
+    <image src='../../imgs/2222.png'></image>
+    <text>维修订单</text>
+  </view>
+  <view class='fonter' bindtap='Statistics'>
+    <image src='../../imgs/Statistics.png'></image>
+    <text>统计表单</text>
+  </view>
+</view>

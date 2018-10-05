@@ -1,0 +1,102 @@
+.time_head{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20rpx;
+    border-bottom: 1rpx solid #f1f1f1;
+    background-color: white;
+  }
+  .time_head image{
+    width: 40rpx;
+    height: 40rpx;
+    margin-right: 20rpx;
+  }
+  
+  .weui-cell__bd{
+    margin-right: 30rpx;
+  }
+  .time_text{
+    display: flex;
+    align-items: center;
+  }
+  .money{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30rpx 0 50rpx 0;
+    background-color: white;
+    margin-top: 10rpx;
+  }
+  .money_color{
+    color:#88adde;
+    margin-top: 20rpx;
+  }
+  .arrears{
+    background-color: white;
+    margin-top: 10rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10rpx;
+  }
+  /* 左右滑动 */
+  .swiper-tab {
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    line-height: 80rpx;
+    margin-bottom: 15rpx;
+  }
+  
+  .swiper-tab-list {
+    font-size: 30rpx;
+    display: inline-block;
+    width: 50%;
+  }
+  
+  .on {
+    color: #2269d4;
+    border-bottom: 5rpx solid #2269d4;
+  }
+  
+  .swiper-box {
+    display: block;
+    height: 100%;
+    width: 100%;
+    /* overflow: hidden; */
+  }
+  .whole{
+    display: flex;
+    justify-content: space-between;
+    padding: 20rpx;
+    background-color: white;
+    border-bottom: 1rpx solid #f1f1f1;
+  }
+  .whole image{
+    width: 40rpx;
+    height: 40rpx;
+    margin-right: 20rpx;
+  }
+
+  /* 底部导航条 */
+.fonter_head{
+  display: flex;
+  justify-content:space-around;
+  background-color: white;
+  width: 750rpx;
+  position:fixed;
+  bottom: 0;
+  left: 0;
+  padding: 6rpx;
+}
+.fonter{
+  display: flex;
+  flex-direction: column;
+  font-size: 25rpx;
+  align-items: center;
+}
+.fonter image{
+  width: 60rpx;
+  height: 60rpx;
+}

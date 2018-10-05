@@ -1,0 +1,179 @@
+/* pages/Login.wxss */
+.user{
+    margin: 0 auto;
+    width: 620rpx;
+    height: 70rpx;
+    display:flex;
+    line-height: 70rpx;
+    
+}
+.user_left{
+    width: 160rpx;
+    height: 70rpx;
+    color: #aaaaaa;
+    text-align: center;
+}
+.user_right{
+    width: 480rpx;
+    height: 70rpx;
+}
+.user_right>input{
+    width: 440rpx;
+    height: 70rpx;
+    border-bottom: 2rpx solid #aaaaaa;
+    font-size: 32rpx;
+    padding-left: 28rpx;
+}
+.user_validate{
+    width: 160rpx;
+    height: 70rpx;
+    position: relative;
+    top:2rpx;
+    right: 0rpx;
+    font-size: 32rpx;
+    color: #2269d4;
+    text-align: center;
+}
+.userBtn{
+    width: 600rpx;
+    height: 72rpx;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+.userBtn_left{
+    width: 150rpx;
+    height: 72rpx;
+    display: flex;
+    justify-content: space-between;
+    /* line-height: 72rpx; */
+}
+.Tick{
+    margin-top: 30rpx;
+    width: 24rpx;
+    height: 24rpx;
+    border: 2rpx solid #000;
+    border-radius: 5rpx;
+    font-size: 24rpx;
+    font-weight: 900;
+    color: red;
+}
+.userBtn_right{
+    height: 72rpx;
+    line-height: 72rpx;
+}
+.Ticktext{
+    margin-top: 29rpx;
+    font-size: 24rpx;
+    margin-left: 6rpx;
+    color: #2269d4;
+}
+.loginBtn{
+    width: 578rpx;
+    height: 80rpx;
+    margin: 0 auto;
+    background-color: #2269d4;
+    border-radius: 50rpx;
+    color: #fff;
+    line-height: 80rpx;
+    text-align: center;
+}
+.registerBtn{
+    width: 200rpx;
+    height: 50rpx;
+    margin: 0 auto;
+    font-size: 30rpx;
+    font-weight: 900;
+    color: #2269d4;
+}
+
+/* 用户弹窗 */
+.show-btn {
+    margin-top: 100rpx;
+    color: #22cc22;
+  }
+  
+  .modal-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.5;
+    overflow: hidden;
+    z-index: 9000;
+    color: #fff;
+  }
+  
+  .modal-dialog {
+    width: 680rpx;
+    overflow: hidden;
+    position: fixed;
+    top: 30%;
+    left: 0;
+    z-index: 9999;
+    background: #f9f9f9;
+    margin: -180rpx 34rpx;
+    border-radius: 36rpx;
+  }
+  .modal-title {
+    padding-top: 42rpx;
+    font-size: 36rpx;
+    color: #030303;
+    text-align: center;
+  }
+  .btn-Photograph,
+  .btn-Album{
+      width: 680rpx;
+      height: 89rpx;
+      text-align: center;
+      line-height: 89rpx;
+      color: #666;
+  }
+  .btn-Photograph{
+    font-size: 46rpx;
+    font-weight: 900;
+  }
+  .btn-Album{
+    padding-bottom: 32rpx;
+  }
+  .modal-ipt{
+    padding-bottom: 36rpx;
+    color: #c7c7cc;
+  }
+  .modal-ipt>input{
+      width: 477rpx;
+      height: 50rpx;
+      margin: 0 auto;
+      border:2rpx solid;
+      padding-left: 10rpx;
+      color: #000;
+  }
+  .modal-footer {
+    display: flex;
+    flex-direction: row;
+    height: 86rpx;
+    border-top: 1px solid #dedede;
+    font-size: 34rpx;
+    line-height: 86rpx;
+  }
+  
+  .btn-cancel {
+    width: 50%;
+    color: #007aff;
+    text-align: center;
+    border-right: 1px solid #dedede;
+  }
+  .btn-confirm {
+    width: 50%;
+    color: #007aff;
+    text-align: center;
+  }
+  .btn-Number{
+    width: 680rpx;
+    height: 89rpx;
+    text-align: center;
+    line-height: 89rpx;
+    border-bottom: 2rpx solid;
+  }

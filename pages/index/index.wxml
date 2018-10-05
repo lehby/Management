@@ -1,0 +1,24 @@
+<view class="Palace" wx:if="{{Duties==10}}">
+    <view class="box" bindtap="Operator" >
+        <image src="../../imgs/136701990979310069.png" />
+        <view >接线员</view>
+    </view>
+</view>
+<view class="Palace" wx:elif="{{Duties==30}}">
+    <view class="box" bindtap="Dispatched">
+        <image src="../../imgs/425233363943522939.png" />
+        <view >收银员</view>
+    </view>
+</view>
+<view class="Palace"  wx:elif="{{Duties==20}}">
+    <view class="box" bindtap="Dispatched" >
+        <image src="../../imgs/335539362685932599.png" />
+        <view >派单员</view>
+    </view>
+</view>
+<view class="Palace" wx:else>
+    <view class="box" bindtap="Dispatched" >
+        <image src="../../imgs/511843638757874565.png" />
+        <view >库管员</view>
+    </view>
+</view>

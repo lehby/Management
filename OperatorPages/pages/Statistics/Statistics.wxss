@@ -1,0 +1,116 @@
+@import "../../../lib/weui.wxss"; 
+ @import "../../../lib/Operator.wxss";
+
+.picker{
+  padding: 19rpx 26rpx;
+  background-color: #FFFFFF;
+}
+.weui-label{
+    text-align: center;
+}
+.weui-cell>image{
+    position: absolute;
+    top: 30rpx;
+    left: 0rpx;
+    width: 32rpx;
+    height: 32rpx;
+}
+.totalList{
+    padding: 0 20rpx;
+    height: 392rpx;
+    background-color: #fff;
+    margin-top: 22rpx;
+}
+.totalList_top{
+    height: 262rpx;
+    text-align: center;
+}
+.top_text{
+    width: 110px;
+    height: 26px;
+    font: 36rpx;
+    margin:0 auto;
+    padding-top: 48rpx;
+}
+.top_amount{
+    width: 138px;
+    height: 29px;
+    font:40rpx;
+    color: #2269D4;
+    margin: 0 auto;
+}
+.totalList_bottom{
+    height: 130rpx;
+    display: flex;
+    justify-content: space-between;
+}
+.gastotal{
+    padding: 0 20rpx;
+    margin-top: 22rpx;
+    height: 252rpx;
+    background-color: #fff;
+    font-size: 28rpx;
+}
+.gastotal_top{
+    height: 78rpx;
+    display: flex;
+    line-height: 78rpx;
+    border-bottom: 2rpx solid #f5f5f5;
+}
+.gastotal_top>image{
+    width: 42rpx;
+    height: 42rpx;
+    position: relative;
+    top: 18rpx;
+}
+.gastotal_bottom{
+    height: 180rpx;
+    
+    display: flex;
+}
+.gastotal_bottom_left,
+.gastotal_bottom_right{
+    width: 50%;
+    height: 180rpx;
+}
+.phoneOrder{
+    height: 90rpx;
+    line-height: 90rpx;
+    display: flex;
+}
+.phoneOrder>image{
+    width: 40rpx;
+    height: 40rpx;
+    position: relative;
+    top: 24rpx;
+}
+.phoneOrder>view{
+    margin-left: 10rpx;
+}
+.phoneOrder_num{
+    height: 90rpx;
+    padding-left: 60rpx;
+    color: #2269D4;
+}
+
+/* 底部导航条 */
+.fonter_head{
+  display: flex;
+  justify-content:space-around;
+  background-color: white;
+  width: 750rpx;
+  position:fixed;
+  bottom: 0;
+  left: 0;
+  padding: 6rpx;
+}
+.fonter{
+  display: flex;
+  flex-direction: column;
+  font-size: 25rpx;
+  align-items: center;
+}
+.fonter image{
+  width: 60rpx;
+  height: 60rpx;
+}

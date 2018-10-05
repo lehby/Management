@@ -1,0 +1,82 @@
+<view class='time_head'>
+    <view class="time_text">
+        <image src="../../imgs/calendar.png" />
+        <text>选择日期</text>
+    </view>
+    <view class="weui-cell__bd">
+        <picker mode="date" value="{{date}}" start="2017-09-01" end="2030-09-01" bindchange="bindDateChange">
+            <view class="weui-input" style="padding-left:276rpx;">{{date}}</view>
+        </picker>
+    </view>
+</view>
+<view class='time_head'>
+    <view class="time_text">
+        <image src="../../imgs/calendar.png" />
+        <text>截止时间</text>
+    </view>
+    <view class="weui-cell__bd">
+        <picker mode="date" value="{{enddate}}" start="2017-09-01" end="2030-09-01" bindchange="bindData">
+            <view class="weui-input" style="padding-left:276rpx;">{{enddate}}</view>
+        </picker>
+    </view>
+</view>
+<view class='money'>
+    <text>出库单数</text>
+    <text class='money_color'>6000</text>
+</view>
+<view class='money'>
+    <text>入库单数</text>
+    <text class='money_color'>6000</text>
+</view>
+<view class='arrears'>
+    <text>欠瓶统计</text>
+</view>
+<view class="swiper-tab">
+    <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">
+        客户欠瓶
+    </view>
+    <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">
+        配送工欠瓶
+    </view>
+</view>
+<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight}}px" bindchange="bindChange">
+    <swiper-item>
+        <view class='whole' wx:for="{{arrears}}" wx:key="{{item}}">
+            <view class="time_text">
+                <image src="{{item.img}}" />
+                <text>{{item.name}}</text>
+            </view>
+            <text>{{item.money}}瓶</text>
+        </view>
+    </swiper-item>
+    <swiper-item>
+        <view class='whole' wx:for="{{arrears}}" wx:key="{{item}}">
+            <view class="time_text">
+                <image src="{{item.img}}" />
+                <text>{{item.name}}</text>
+            </view>
+            <text>{{item.money}}瓶</text>
+        </view>
+    </swiper-item>
+</swiper>
+<view class='money'>
+    <text>出库单数</text>
+    <text class='money_color'>6000</text>
+</view>
+
+<!-- 底部跳转 -->
+<view style='width:100%;height:120rpx;'></view>
+<view class='fonter_head'bindtap='HomePage'>
+  <view class='fonter'>
+    <image src='/imgs/11.png'></image>
+    <text >首页</text>
+  </view>
+  <view class='fonter' bindtap='underbottle'>
+    <image src='/imgs/22.png'></image>
+    <text>欠瓶入库</text>
+  </view>
+  <view class='fonter' >
+    <image src='/imgs/Statistics1.png'></image>
+    <text style='color:#2269d4'>库存报表</text>
+  </view>
+</view>

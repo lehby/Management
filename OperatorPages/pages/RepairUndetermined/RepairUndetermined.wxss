@@ -1,0 +1,14 @@
+@import "../WaitconfirmDetails/WaitconfirmDetails.wxss";
+ @import "../../../lib/Operator.wxss";
+.head{
+    background-color: #fff;
+    padding: 0 20rpx; 
+}
+.describe{
+    /* height: 140rpx; */
+    font-size: 28rpx;
+}
+.describelist{
+    height: 70rpx;
+    line-height: 70rpx;
+}

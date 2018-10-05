@@ -1,0 +1,52 @@
+<view class="Palace">
+  <view class="box" bindtap="onInventory">
+    <image src="../../imgs/p.png" />
+    <view>盘点</view>
+  </view>
+  <view class="box" bindtap="onShipments">
+    <image src="../../imgs/c.png" />
+    <view>充装出库</view>
+  </view>
+</view>
+<view class="Palace">
+  <view class="box" bindtap="onWarehousing">
+    <image src="../../imgs/444.png" />
+    <view>充装入库</view>
+  </view>
+  <view class="box" bindtap="onDistributionShipments">
+    <image src="../../imgs/555.png" />
+    <view>配送出库</view>
+  </view>
+</view>
+<view class="Palace" bindtap="onDistributionWarehousing">
+  <view class="box">
+    <image src="../../imgs/666.png" />
+    <view>配送入库</view>
+  </view>
+  <view class="box" bindtap="onGasCollection">
+    <image src="../../imgs/77.png" />
+    <view>退瓶退气</view>
+  </view>
+</view>
+<view class="Palace">
+  <view class="box" style="width:336rpx;" bindtap="onSelfUse">
+    <image src="../../imgs/999.png" />
+    <view>自用入库</view>
+  </view>
+</view>
+<!-- 底部跳转 -->
+<view style='width:100%;height:120rpx;'></view>
+<view class='fonter_head'>
+  <view class='fonter'>
+    <image src='/imgs/111.png'></image>
+    <text style='color:#2269d4'>首页</text>
+  </view>
+  <view class='fonter' bindtap='underbottle'>
+    <image src='/imgs/22.png'></image>
+    <text>欠瓶入库</text>
+  </view>
+  <view class='fonter' bindtap='EmptyBottle'>
+    <image src='/imgs/Statistics.png'></image>
+    <text>库存报表</text>
+  </view>
+</view>
