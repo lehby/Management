@@ -8,13 +8,22 @@
     {
       "root": "CollectingSilverPages",
       "pages": [
-        "pages/Home/Home"
+        "pages/Home/Home",
+        "pages/Statistics/Statistics",
+        "pages/Receivables/Receivables",
+        "pages/Details/Details"
       ]
     },
     {
       "root": "DispatchedPages",
       "pages": [
-        "pages/Home/Home"
+        "pages/Home/Home",
+        "pages/RepairOrder/RepairOrder",
+        "pages/RepairDetails/RepairDetails",
+        "pages/OrderList/OrderList",
+        "pages/Details/Details",
+        "pages/Distribution/Distribution",
+        "pages/Statistics/Statistics"
       ]
     },
     {
