@@ -1,6 +1,8 @@
-let { baseUrl } = getApp().globalData
-const baseUrls = `${baseUrl}/Api/Customers/CheckOrderCustomer`//检查下单客户接口
-const Order = `${baseUrl}/Api/GasOrders/StaffSumbitOrder`//提交订气订单接口
+let {
+  baseUrl
+} = getApp().globalData
+const baseUrls = `${baseUrl}/Api/Customers/CheckOrderCustomer` //检查下单客户接口
+const Order = `${baseUrl}/Api/GasOrders/StaffSumbitOrder` //提交订气订单接口
 const RepairUrl = `${baseUrl}/Api/RepairOrders/StaffSumbitOrder` //提交维修订单接口
 const LabelUrl = `${baseUrl}/Api/RepairOrders/GetRepairLabels` //获取维修标签
 let app = getApp().globalData
@@ -64,14 +66,20 @@ Page({
     AccountId: "",
     OrderItems: "",
     EnterpriseId: "",
-    showgoods: false,//控制商品弹框隐藏显示
+    showgoods: false, //控制商品弹框隐藏显示
     goodslist: [],
     goods: [],
     Quantity: 0,
     Price: 0,
-    OptionsBox: [//瓶和公斤选择
-      { name: '瓶', checked: true },
-      { name: '公斤', checked: false }
+    OptionsBox: [ //瓶和公斤选择
+      {
+        name: '瓶',
+        checked: true
+      },
+      {
+        name: '公斤',
+        checked: false
+      }
     ],
     //********************************************维修订单信息*************************************//
     // 用气编号
@@ -97,7 +105,7 @@ Page({
     // 维修编码
     RepairLabelIds: "",
     // 照片编号
-    PhotoIds:"",
+    PhotoIds: "",
     // 点击后的保修
     RepairLabel: [],
     // 渲染的保修列表
@@ -106,14 +114,14 @@ Page({
     edit: false,
   },
   //导航控制
-  navbarTap: function (e) {
+  navbarTap: function(e) {
     this.setData({
       currentTab: e.currentTarget.dataset.idx
     })
   },
 
   //预约时间Picker索引值
-  bindPickerChange: function (e) {
+  bindPickerChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       index: e.detail.value
@@ -121,31 +129,31 @@ Page({
   },
 
   //预约那天Picker索引值
-  bindDayPickerChange: function (e) {
+  bindDayPickerChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       index1: e.detail.value
     })
   },
   // 底部导航跳转
-  Booting: function () {
+  Booting: function() {
     wx.redirectTo({
       url: "/OperatorPages/pages/OrderList/OrderList",
     })
   },
-  Repair: function () {
+  Repair: function() {
     wx.redirectTo({
       url: '/OperatorPages/pages/RepairOrder/RepairOrder',
     })
   },
-  Statistics: function () {
+  Statistics: function() {
     wx.redirectTo({
       url: '/OperatorPages/pages/Statistics/Statistics',
     })
   },
   //********************************************订单表单信息*************************************//
   //瓶和公斤选项框点击事件
-  OptionsBox: function (e) {
+  OptionsBox: function(e) {
     var checked = e.detail.value
     var changed = {}
     for (var i = 0; i < this.data.OptionsBox.length; i++) {
@@ -159,7 +167,7 @@ Page({
     this.setData(changed)
     this.getData()
   },
-  getData() {//获取查询到已有的信息
+  getData() { //获取查询到已有的信息
     //判断用户选择的是瓶还是公斤
     console.log(app)
     let arr = []
@@ -193,12 +201,12 @@ Page({
     }
   },
   // 收索电话用气编号
-  collecting: function () {
+  collecting: function() {
     let this_ = this
     let Phone = this_.data.telephone
     let GasNo = this_.data.GasNo
     let EnterpriseId = app.User.EnterpriseId
-    wx.request({//检查下单客户请求
+    wx.request({ //检查下单客户请求
       url: baseUrls,
       data: {
         Sign: "",
@@ -208,7 +216,7 @@ Page({
       },
       method: 'post', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
-      success: function (res) {
+      success: function(res) {
         console.log(res.data)
         if (res.data.Data == null) {
           utils.showError("未搜索出结果")
@@ -238,7 +246,7 @@ Page({
             })
           }
           app.Orderaddress.Contact = data.CustomerName
-          this_.setData({//获取查询到的信息
+          this_.setData({ //获取查询到的信息
             CustomerName: data.CustomerName,
             CustomerAddress: data.CustomerAddress,
             CustomerId: data.CustomerId,
@@ -252,28 +260,28 @@ Page({
     })
   },
   // 获取订气订单用气编号
-  Gasnumber: function (e) {
+  Gasnumber: function(e) {
     app.Orderaddress.GasNo = e.detail.value
     this.setData({
       GasNo: e.detail.value
     })
   },
   // 获取订购人
-  Subscribers: function (e) {
+  Subscribers: function(e) {
     app.Orderaddress.Contact = e.detail.value
     this.setData({
       CustomerName: e.detail.value
     })
   },
   // 获取订单用户电话
-  telephone: function (e) {
+  telephone: function(e) {
     app.Orderaddress.Phone = e.detail.value
     this.setData({
       telephone: e.detail.value
     })
   },
   // 获取订气订单地址
-  address: function (e) {
+  address: function(e) {
     this.setData({
       CustomerAddress: e.detail.value
     })
@@ -296,19 +304,17 @@ Page({
     let OptionsBox = this_.data.OptionsBox
     let PrceType
     let SubscribeTime
-    if (OptionsBox[0].checked === true) {//购买模式判断
+    if (OptionsBox[0].checked === true) { //购买模式判断
       PrceType = 0
-    }
-    else if (OptionsBox[1].checked === true) {
+    } else if (OptionsBox[1].checked === true) {
       PrceType = 10
     };
     let array = this_.data.array
     let time = "";
-    if (array[this_.data.index] === "立即出发") {//预约时间判断
+    if (array[this_.data.index] === "立即出发") { //预约时间判断
       time = 0
       SubscribeTime = ""
-    }
-    else if (array[this_.data.index] !== "立即出发") {
+    } else if (array[this_.data.index] !== "立即出发") {
       time = 10
       let Times = utils.formatTime1(new Date());
       let day = Times.slice(0, 10)
@@ -317,7 +323,7 @@ Page({
     };
     let goodslist = this_.data.goodslist
     let array1 = [];
-    if (OptionsBox[0].checked === true) {//瓶
+    if (OptionsBox[0].checked === true) { //瓶
       for (let k = 0; k < goodslist.length; k++) {
         if (goodslist[k].Quantity > 0) {
           let OrderItems = {
@@ -379,15 +385,15 @@ Page({
         },
         method: 'post', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         // header: {}, // 设置请求的 header
-        success: function (res) {
+        success: function(res) {
           console.log(res)
-          if (res.data.Code == 200) {//下订单成功初始化数据
+          if (res.data.Code == 200) { //下订单成功初始化数据
             app.Orderaddress.GasNo = "",
-            app.Orderaddress.Contact = "",
-            app.Orderaddress.Phone = "",
-            app.Orderaddress.Address = "",
-            app.Orderaddress.Longitude = "",
-            app.Orderaddress.Latitude = ""
+              app.Orderaddress.Contact = "",
+              app.Orderaddress.Phone = "",
+              app.Orderaddress.Address = "",
+              app.Orderaddress.Longitude = "",
+              app.Orderaddress.Latitude = ""
             app.CustomerInfo = null
             this_.setData({
               GasNo: "",
@@ -411,13 +417,13 @@ Page({
     }
   },
   /**
-  * 商品弹出框蒙层截断touchmove事件
-  */
-  preventTouchMove: function () { },
+   * 商品弹出框蒙层截断touchmove事件
+   */
+  preventTouchMove: function() {},
   /**
    * 商品隐藏模态对话框
    */
-  goodsHideModal: function () {
+  goodsHideModal: function() {
     this.setData({
       showgoods: false
     });
@@ -425,13 +431,13 @@ Page({
   /**
    * 商品对话框取消按钮点击事件
    */
-  goodsCancel: function () {
+  goodsCancel: function() {
     this.goodsHideModal();
   },
   /**
    * 商品对话框确认按钮点击事件
    */
-  goodsConfirm: function () {
+  goodsConfirm: function() {
     let goodslist = this.data.goodslist;
     let goods = [];
     for (let i = 0; i < goodslist.length; i++) {
@@ -458,7 +464,7 @@ Page({
   /**
    * 用户点击商品减1
    */
-  subtracttap: function (e) {
+  subtracttap: function(e) {
     const index = e.target.dataset.index;
     const goodslist = this.data.goodslist;
     const Quantity = goodslist[index].Quantity;
@@ -475,7 +481,7 @@ Page({
   /**
    * 用户点击商品加1
    */
-  addtap: function (e) {
+  addtap: function(e) {
     const index = e.target.dataset.index;
     const goodslist = this.data.goodslist;
     const Quantity = goodslist[index].Quantity;
@@ -488,12 +494,12 @@ Page({
   /**
    * 计算商品总数
    */
-  calculateTotal: function () {
+  calculateTotal: function() {
     let goodslist = this.data.goodslist;
     let Count = 0;
     let Price = 0;
     let OptionsBox = this.data.OptionsBox
-    if (OptionsBox[0].checked === true || OptionsBox[1].checked === false) {//瓶
+    if (OptionsBox[0].checked === true || OptionsBox[1].checked === false) { //瓶
       for (let i = 0; i < goodslist.length; i++) {
         let good = goodslist[i];
         Count += good.Quantity;
@@ -503,7 +509,7 @@ Page({
         Quantity: Count,
         Price: Price
       })
-    } else {//公斤
+    } else { //公斤
       for (let i = 0; i < goodslist.length; i++) {
         let goods = goodslist[i];
         Count += parseInt(goods.Quantity);
@@ -529,41 +535,40 @@ Page({
     })
   },
   // 获取用气编号维修
-  MaintenanceNumber: function (e) {
+  MaintenanceNumber: function(e) {
     this.setData({
       MaintenanceNumber: e.detail.value
     })
   },
   // 获取维修人姓名
-  MaintenanceName: function (e) {
-    app.Orderaddress.Contact = e.detail.value
+  MaintenanceName: function(e) {
     this.setData({
       MaintenanceName: e.detail.value
     })
+    app.Orderaddress.Contact = this.data.MaintenanceName
   },
   // 获取申报人电话
-  MaintenanceTelephone: function (e) {
-    app.Orderaddress.Phone = e.detail.value
+  MaintenanceTelephone: function(e) {
     this.setData({
       MaintenanceTelephone: e.detail.value
     })
+    app.Orderaddress.Phone = this.data.MaintenanceTelephone
   },
   // 获取维修地址
-  RepairAddress: function (e) {
-    app.Orderaddress.Address = e.detail.value
+  RepairAddress: function(e) {
     this.setData({
       RepairAddress: e.detail.value
     })
   },
   // 获取维修描述
-  MaintenanceDescription: function (e) {
+  MaintenanceDescription: function(e) {
     this.setData({
       MaintenanceDescription: e.detail.value
     })
   },
 
   // 获取用户选择时间
-  MaintenanceReservation: function (e) {
+  MaintenanceReservation: function(e) {
     let timelist = this.data.array
     let index = e.detail.value
     let timelists = timelist[index]
@@ -582,7 +587,7 @@ Page({
     }
   },
   // 获取报修标签
-  repair: function () {
+  repair: function() {
     let _this = this
     wx.request({
       url: LabelUrl,
@@ -591,7 +596,7 @@ Page({
         'content-type': 'application/json'
       },
       method: 'GET',
-      success: function (res) {
+      success: function(res) {
         let guaranteeList = res.data.Data
         console.log(guaranteeList)
         if (res.data.Code == 200) {
@@ -606,7 +611,7 @@ Page({
   },
 
   // 获取点的什么维修事项
-  Discoloration: function (e) {
+  Discoloration: function(e) {
     let _this = this
     let index = e.target.dataset.index - 1
     let list = _this.data.guaranteeList
@@ -636,7 +641,8 @@ Page({
 
 
   // 收索维修订单
-  collectingCable: function () {
+  collectingCable: function() {
+    console.log(app)
     let _this = this
     let phone = _this.data.MaintenanceTelephone
     let GasNo = _this.data.MaintenanceNumber
@@ -650,7 +656,7 @@ Page({
       },
       method: 'post',
       // header: {}, // 设置请求的 header
-      success: function (res) {
+      success: function(res) {
         let Repair = res.data.Data
         console.log(Repair)
         if (res.data.Data == null) {
@@ -660,21 +666,25 @@ Page({
           let Phone = utils.Decrypt(Repair.CustomerPhone) //客户电话
           let Address = utils.Decrypt(Repair.CustomerAddress) //客户地址
           let GasNo = Repair.GasNo //用气编号
-          app.Orderaddress.Contact = Name//客户名称
-          app.Orderaddress.Phone = Phone//客户电话
-          app.Orderaddress.Address = Address
-          app.Orderaddress.GasNo = GasNo//用气编号
-          app.CustomerInfo = Repair
-          if (Name!==""){
+          if (Repair.CustomerId==0){
+            utils.showError("未搜索到该用户不准许下单")
+            return false
+          }
+          if (Name !== "") {
             _this.setData({
               edit: true
             })
+            app.Orderaddress.Contact = Name //客户名称
+            app.Orderaddress.Phone = Phone //客户电话
+            app.Orderaddress.Address = Address
+            app.Orderaddress.GasNo = GasNo //用气编号
+            app.CustomerInfo = Repair
           }
-          if (Phone!==""){
+          if (Phone !== "") {
             _this.setData({
               MaintenanceTelephone: Phone,
             })
-          }
+          } 
           _this.setData({
             MaintenanceName: Name,
             RepairAddress: Address,
@@ -688,8 +698,8 @@ Page({
     })
   },
   // 提交维修表单
-  Submit: function () {
-    let _this=this
+  Submit: function() {
+    let _this = this
     // 预约时间拼接
     let Times = utils.formatTime1(new Date());
     let day = Times.slice(0, 10)
@@ -715,23 +725,23 @@ Page({
       url: RepairUrl,
       data: {
         Sign: "",
-        EnterpriseId: app.User.EnterpriseId,//企业唯一编号
-        CustomerId: _this.data.customerid,//客户唯一编号
-        Contact: utils.Encryption(_this.data.MaintenanceName),//联系人
-        Phone: utils.Encryption(_this.data.MaintenanceTelephone),//联系电话
-        Address: utils.Encryption(_this.data.RepairAddress),//联系地址
-        Longitude: _this.data.longitude,//纬度
-        Latitude: _this.data.latitude,//精度
-        ServiceMode: _this.data.ServiceMode,//服务模式
-        SubscribeTime: Subscribe,//预约时间
-        ProblemDescription: _this.data.MaintenanceDescription,//问题描述
-        UserId: app.User.UserId,//系统人员唯一编号
-        RepairLabelIds: _this.data.RepairLabelIds,//维修项目编号
-        PhotoIds: "",//照片编号
+        EnterpriseId: app.User.EnterpriseId, //企业唯一编号
+        CustomerId: _this.data.customerid, //客户唯一编号
+        Contact: utils.Encryption(_this.data.MaintenanceName), //联系人
+        Phone: utils.Encryption(_this.data.MaintenanceTelephone), //联系电话
+        Address: utils.Encryption(_this.data.RepairAddress), //联系地址
+        Longitude: _this.data.longitude, //纬度
+        Latitude: _this.data.latitude, //精度
+        ServiceMode: _this.data.ServiceMode, //服务模式
+        SubscribeTime: Subscribe, //预约时间
+        ProblemDescription: _this.data.MaintenanceDescription, //问题描述
+        UserId: app.User.UserId, //系统人员唯一编号
+        RepairLabelIds: _this.data.RepairLabelIds, //维修项目编号
+        PhotoIds: "", //照片编号
       },
       method: 'post',
       // header: {}, // 设置请求的 header
-      success: function (res) {
+      success: function(res) {
         console.log(res)
         if (res.data.Code == 200) {
           app.Orderaddress.Contact = ""
@@ -770,9 +780,9 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     //********************************************订单表单信息*************************************//
-    if (options.Order == 0) {//订气订单传值
+    if (options.Order == 0) { //订气订单传值
       console.log("订气")
       this.setData({
         currentTab: 0,
@@ -793,13 +803,15 @@ Page({
           })
         }
       }
-    } else if (options.Order == 1) {//维修订单传值
+    } else if (options.Order == 1) { //维修订单传值
       console.log("维修")
       this.setData({
         currentTab: 1,
         RepairAddress: app.Orderaddress.Address,
       })
       if (app.Orderaddress.Latitude !== "") {
+        console.log(app.Orderaddress.Phone)
+        console.log(app)
         this.setData({
           latitude: app.Orderaddress.Latitude,
           longitude: app.Orderaddress.Longitude,
@@ -807,7 +819,7 @@ Page({
           MaintenanceName: app.Orderaddress.Contact,
           MaintenanceNumber: app.Orderaddress.GasNo,
         })
-        if (app.CustomerInfo!==null){
+        if (app.CustomerInfo !== null) {
           this.setData({
             customerid: app.CustomerInfo.CustomerId
           })
@@ -821,49 +833,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

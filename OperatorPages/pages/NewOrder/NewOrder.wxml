@@ -159,7 +159,7 @@
 </view>
 <!-- 新增维修 -->
 <view hidden="{{currentTab!==1}}">
-  <!-- 可编辑input框 -->
+  <!-- 不可可编辑input框 -->
   <view class='input_width' wx:if="{{edit}}">
     <view>
       <view class="orderList">
@@ -168,30 +168,18 @@
           <input placeholder="请输入用气编号" disabled="disabled" type='text' value='{{MaintenanceNumber}}' />
         </view>
       </view>
-      <view class="orderList">
-        <view class="orderList_left">联系电话:</view>
-        <view class="orderList_right">
-          <input placeholder="请输入联系电话" disabled="disabled" value='{{MaintenanceTelephone}}' />
-        </view>
-      </view>
     </view>
     <view class='text_color'>
       <text>搜索</text>
     </view>
   </view>
-  <!-- 不可编辑input框 -->
+  <!-- 可编辑input框 -->
   <view class='input_width' wx:else>
     <view>
       <view class="orderList">
         <view class="orderList_left">用气编号:</view>
         <view class="orderList_right">
-          <input placeholder="请输入用气编号" type='text' value='{{MaintenanceNumber}}' bindinput='MaintenanceNumber' />
-        </view>
-      </view>
-      <view class="orderList">
-        <view class="orderList_left">联系电话:</view>
-        <view class="orderList_right">
-          <input placeholder="请输入联系电话" value='{{MaintenanceTelephone}}' bindinput='MaintenanceTelephone' />
+          <input placeholder="请输入用气编号" maxlength="11" type='text' value='{{MaintenanceNumber}}' bindinput='MaintenanceNumber' />
         </view>
       </view>
     </view>

@@ -66,6 +66,8 @@
     }
   ],
   "window": {
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#f2f2f2",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#2269d4",
     "navigationBarTitleText": "经营端",
