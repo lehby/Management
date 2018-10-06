@@ -1,4 +1,4 @@
- @import "../../../lib/Operator.wxss";
+ @import "../OrderList/OrderList.wxss";
 .Order_status{
     height: 380rpx;
     padding: 0 20rpx;
@@ -19,6 +19,7 @@
     display: flex;
     border-bottom: 2rpx solid #f5f5f5;
 }
+
 .middle_left{
     width: 48rpx;
     height: 182rpx;
@@ -32,6 +33,7 @@
 }
 .middle_right{
     height: 182rpx;
+    width:92%;
 }
 .middle_right_top{
     height: 66rpx;
@@ -64,7 +66,6 @@
 }
 .table{
     margin-top: 24rpx;
-    height: 320rpx;
     padding: 0 20rpx;
     font-size: 28rpx;
     background: #fff;
@@ -83,13 +84,13 @@
     display: flex;
 }
 .th_within{
-    width: 25%;
+    width: 33.33%;
     height: 60rpx;
     line-height: 60rpx;
     text-align: center;
 }
 .td_witdin{
-    width: 25%;
+    width: 33.33%;
     height: 84rpx;
     line-height: 84rpx;
     text-align: center;
@@ -106,8 +107,7 @@
 .details{
     margin-top: 24rpx;
     background-color: #fff;
-    padding: 0 20rpx;
-    height: 270rpx;
+    padding:20rpx;
     font-size: 28rpx;
     border-bottom:2rpx solid #f5f5f5;
 }
@@ -139,3 +139,58 @@
     background-color: #0F59BD;
     color: #fff;
 }
+/* 意见弹框 */
+
+.modal-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.5;
+    overflow: hidden;
+    z-index: 9000;
+    color: #fff;
+  }
+  
+
+   .modal-dialog {
+    width: 680rpx;
+    overflow: hidden;
+    position: fixed;
+    top: 45%;
+    left: 0;
+    z-index: 9999;
+    background-color: #f9f9f9;
+    margin: -180rpx 36rpx;
+    border-radius: 36rpx;
+  }
+ .textfont{
+   width: 90%;
+   height: 300rpx;
+   padding: 20rpx;
+   border: 1rpx solid #cccccc;
+   margin: 0 auto;
+ }
+ .butt{
+   display: flex;
+   justify-content: space-between;
+ }
+ .butttext{
+   width: 50%;
+   height: 80rpx;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+ .qux{
+   padding: 20rpx;
+   text-align: center;
+ }
+ .textcolor1{
+   color: rgb(243, 126, 31)
+ }
+ .textcolor{
+   color: rgba(45, 218, 111, 0.616)
+ }

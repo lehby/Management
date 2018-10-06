@@ -1,7 +1,9 @@
 <view class="Order_status">
     <view class="Order_status_top">
-        <view >订单状态</view>
-        <view style="color: #2168D3;">待确定</view>
+        <view>订单状态</view>
+        <view style="color: #2168D3;" wx:if="{{data.Status==0}}">待处理</view>
+        <view style="color: #0EBC8B;" wx:elif="{{data.Status>0 && data.Status<30}}">已处理</view>
+        <view style="color: red;" wx:else>已取消</view>
     </view>
     <view class="Order_status_middle">
         <view class="middle_left">
@@ -11,10 +13,10 @@
         </view>
         <view class="middle_right">
             <view class="middle_right_top">
-                <view >张晓宏</view>
-                <view >13686982686</view>
+                <view>{{data.Contact}}</view>
+                <view>{{data.Phone}}</view>
             </view>
-            <view clase="middle_right_bottom">北京市朝阳区来广营东河西五街房管奥北中心五号楼1单元2504</view>
+            <view clase="middle_right_bottom">{{data.Address}}</view>
         </view>
     </view>
     <view class="Order_status_bottom">
@@ -25,47 +27,51 @@
         </view>
         <view class="bottom_right">
             <view>预约时间</view>
-            <view>立即出发</view>
+            <view wx:if="{{data.FormatSubscribeTime==null}}">立即出发</view>
+            <view wx:else>{{data.FormatSubscribeTime}}</view>
         </view>
     </view>
 </view>
 <view class="table">
-    <text >商品订单</text>
+    <text>商品订单</text>
     <view class="th">
         <view class="th_within">名称</view>
-        <view class="th_within">规格</view>
         <view class="th_within">单价</view>
         <view class="th_within">数量</view>
     </view>
-    <view class="td">
-        <view class="td_witdin">液化气大瓶</view>
-        <view class="td_witdin">48kg</view>
-        <view class="td_witdin">120</view>
-        <view class="td_witdin">3</view>
-    </view>
-    <view class="td">
-        <view class="td_witdin">液化气大瓶</view>
-        <view class="td_witdin">48kg</view>
-        <view class="td_witdin">120</view>
-        <view class="td_witdin">3</view>
+    <view class="td" wx:for="{{data.OrderItems}}" wx:for-item="item" wx:key="OrderItems">
+        <view class="td_witdin">{{item.ProductName}}</view>
+        <view class="td_witdin">{{item.Price}}</view>
+        <view class="td_witdin">{{item.Quantity}}</view>
     </view>
 </view>
-<view class="payment" style="margin-top: 24rpx;border-bottom: 2rpx solid #f5f5f5;">
-    <view >支付方式</view>
-    <view >在线支付</view>
-</view>
-<view class="payment">
-    <view >支付状态</view>
-    <view >已付款</view>
+<view class="payment" style="border-bottom: 2rpx solid #f5f5f5;">
+    <view>支付方式</view>
+    <view>货到付款</view>
 </view>
 <view class="details">
-    <view>用气编号: 4657650676243</view>
-    <view>订单号: DD170721524848366</view>
-    <view>下单时间: 2018-08-23 11:23</view>
-    <view>订单金额: ￥9999</view>
+    <view>用气编号: {{data.CustomerGasNo}}</view>
+    <view>订单号: {{data.Serialnumber}}</view>
+    <view>订单金额: ￥{{data.Price}}</view>
+    <view wx:if="{{data.Status==100}}">取消原因: {{OperateExplain}}</view>
+    <view wx:if="{{data.Status==100}}">操作人: {{OperatorName}}</view>
+    <view wx:if="{{data.Status==100}}">操作时间: {{FormatOperateTime}}</view>
 </view>
-<view class="btnlist">
-    <view class="btn cancel">取消订单</view>
-    <view class="btn confirm">确认订单</view>
+<view class="btnlist" wx:if="{{data.Status==0}}">
+    <view class="waitconfirm_btn btn_color" catchtap="cancel" data-orderId='{{item.ID}}'>取消订单</view>
+    <view class="waitconfirm_btn" catchtap='conflrm' data-orderId='{{item.ID}}' data-CustomerId="{{data.CustomerId}}">
+        确认订单
+    </view>
 </view>
-
+<!-- 取消意见 -->
+<view class="modal-mask" bindtap="HideModal" catchtouchmove="preventTouchMove" wx:if="{{ShowModal}}"></view>
+<view class="modal-dialog" wx:if="{{ShowModal}}">
+    <view>
+        <view class='qux'>请输入取消原因</view>
+        <textarea class='textfont' data-type='text' placeholder='请填写取消原因' bindinput='getText'></textarea>
+    </view>
+    <view class='butt'>
+        <view class='butttext textcolor' bindtap="onCancel">取消</view>
+        <view class='butttext textcolor1' bindtap='onConfirm'>提交</view>
+    </view>
+</view>

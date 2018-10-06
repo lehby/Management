@@ -6,95 +6,113 @@
 </view>
 <!-- 全部订单 -->
 <view hidden="{{currentTab!==0}}">
-    <!-- 系统订单 -->
-    <view class="waitconfirm" wx:for="{{waitconfirm}}" wx:for-item="item" wx:key="waitconfirm" bindtap="onWaitconfirmDetails">
+    <view class="waitconfirm" wx:for="{{waitconfirm}}" wx:for-item="item" wx:key="waitconfirm" bindtap="onWaitconfirmDetails" data-id="{{item.ID}}">
         <view class="waitconfirm_top">
-            <view>用气编号:{{item.CustomeId}}</view>
-            <view style="color:#2168D3;">{{item.OrderType}}</view>
+            <view wx:if="{{item.CustomerGasNo==null}}">用气编号:</view>
+            <view wx:else>用气编号:{{item.CustomerGasNo}}</view>
+            <view style="color:#2168D3;" wx:if="{{item.CreateMode==0}}">系统订单</view>
+            <view style="color:#0EBC8B;" wx:else>电话订单</view>
         </view>
         <view class="waitconfirm_middle">
+            <view class="middle">
+                <view>订单状态</view>
+                <view style="color: #2168D3;" wx:if="{{item.Status==0}}">待处理</view>
+                <view style="color: #0EBC8B;" wx:elif="{{item.Status>0 && item.Status<30}}">
+                    已处理
+                </view>
+                <view style="color: red;" wx:else>已取消</view>
+            </view>
             <view class="waitconfirm_middle_list">订单金额: ￥{{item.Price}}</view>
             <view class="waitconfirm_middle_list">联系电话：{{item.Phone}}</view>
             <view class="waitconfirm_middle_list">地址：{{item.Address}}</view>
         </view>
-        <view class="waitconfirm_bottom">
-            <view class="waitconfirm_btn btn_color" bindtap='cancel'>取消</view>
-            <view class="waitconfirm_btn" bindtap='conflrm'>确定</view>
-        </view>
-    </view>
-    <!-- 电话订单 -->
-    <view class="waitconfirm" wx:for="{{confirm}}" wx:for-item="item" wx:key="confirm" bindtap="onConfirmDetails">
-        <view class="waitconfirm_top">
-            <view>用气编号:{{item.CustomeId}}</view>
-            <view style="color:#0EBC8B;">{{item.OrderType}}</view>
-        </view>
-        <view class="waitconfirm_middle">
-            <view class="waitconfirm_middle_list">订单金额: ￥{{item.Price}}</view>
-            <view class="waitconfirm_middle_list">联系电话：{{item.Phone}}</view>
-            <view class="waitconfirm_middle_list">地址：{{item.Address}}</view>
-        </view>
-        <view class="waitconfirm_bottom">
-        <view class="waitconfirm_btn btn_color" bindtap='cancel'>取消</view>
-            <view class="waitconfirm_btn" bindtap='conflrm'>确定</view>
+        <view class="waitconfirm_bottom" wx:if="{{item.Status==0}}">
+            <view class="waitconfirm_btn btn_color" catchtap="cancel" data-orderId='{{item.ID}}'>取消订单</view>
+            <view class="waitconfirm_btn" catchtap='conflrm' data-orderId='{{item.ID}}' data-CustomerId="{{item.CustomerId}}" >确认订单</view>
         </view>
     </view>
 </view>
-<!-- 系统订单 -->
+<!-- 待处理订单 -->
 <view hidden="{{currentTab!==1}}">
-    <view class="waitconfirm" wx:for="{{waitconfirm}}" wx:for-item="item" wx:key="waitconfirm" bindtap="onWaitconfirmDetails">
+    <view class="waitconfirm" wx:for="{{Untreated}}" wx:for-item="item" wx:key="Untreated" bindtap="onWaitconfirmDetails" data-id="{{item.ID}}">
         <view class="waitconfirm_top">
-            <view>用气编号:{{item.CustomeId}}</view>
-            <view style="color:#2168D3;">{{item.OrderType}}</view>
+            <view wx:if="{{item.CustomerGasNo==null}}">用气编号:</view>
+            <view wx:else>用气编号:{{item.CustomerGasNo}}</view>
+            <view style="color:#2168D3;" wx:if="{{item.CreateMode==0}}">系统订单</view>
+            <view style="color:#0EBC8B;" wx:else>电话订单</view>
         </view>
         <view class="waitconfirm_middle">
+            <view class="middle">
+                <view>订单状态</view>
+                <view style="color: #2168D3;" wx:if="{{item.Status==0}}">待处理</view>
+                <view style="color: #0EBC8B;" wx:elif="{{item.Status>0 && item.Status<30}}">
+                    已处理
+                </view>
+                <view style="color: red;" wx:else>已取消</view>
+            </view>
             <view class="waitconfirm_middle_list">订单金额: ￥{{item.Price}}</view>
             <view class="waitconfirm_middle_list">联系电话：{{item.Phone}}</view>
             <view class="waitconfirm_middle_list">地址：{{item.Address}}</view>
         </view>
         <view class="waitconfirm_bottom">
-        <view class="waitconfirm_btn btn_color" bindtap='cancel'>取消</view>
-            <view class="waitconfirm_btn" bindtap='conflrm'>确定</view>
+            <view class="waitconfirm_btn btn_color" catchtap="cancel" data-orderId='{{item.ID}}' >取消订单</view>
+            <view class="waitconfirm_btn" catchtap='conflrm' data-orderId='{{item.ID}}' data-CustomerId="{{item.CustomerId}}" >确认订单</view>
         </view>
     </view>
 </view>
- <!-- 电话订单 -->
+<!-- 取消订单 -->
 <view hidden="{{currentTab!==2}}">
-    <view class="waitconfirm" wx:for="{{confirm}}" wx:for-item="item" wx:key="confirm" bindtap="onConfirmDetails">
+    <view class="waitconfirm" wx:for="{{CancelList}}" wx:for-item="item" wx:key="CancelList" bindtap="onWaitconfirmDetails" data-id="{{item.ID}}">
         <view class="waitconfirm_top">
-            <view>用气编号:{{item.CustomeId}}</view>
-            <view style="color:#0EBC8B;">{{item.OrderType}}</view>
+            <view wx:if="{{item.CustomerGasNo==null}}">用气编号:</view>
+            <view wx:else>用气编号:{{item.CustomerGasNo}}</view>
+            <view style="color:#2168D3;" wx:if="{{item.CreateMode==0}}">系统订单</view>
+            <view style="color:#0EBC8B;" wx:else>电话订单</view>
         </view>
         <view class="waitconfirm_middle">
+           <view class="middle">
+                <view>订单状态</view>
+                <view style="color: #2168D3;" wx:if="{{item.Status==0}}">待处理</view>
+                <view style="color: #0EBC8B;" wx:elif="{{item.Status>0 && item.Status<30}}">
+                    已处理
+                </view>
+                <view style="color: red;" wx:else>已取消</view>
+            </view>
             <view class="waitconfirm_middle_list">订单金额: ￥{{item.Price}}</view>
             <view class="waitconfirm_middle_list">联系电话：{{item.Phone}}</view>
             <view class="waitconfirm_middle_list">地址：{{item.Address}}</view>
         </view>
-        <view class="waitconfirm_bottom">
-        <view class="waitconfirm_btn btn_color" bindtap='cancel'>取消</view>
-            <view class="waitconfirm_btn" bindtap='conflrm'>确定</view>
-        </view>
     </view>
 </view>
-
-
-
+<!-- 取消意见 -->
+<view class="modal-mask" bindtap="HideModal" catchtouchmove="preventTouchMove" wx:if="{{ShowModal}}"></view>
+<view class="modal-dialog" wx:if="{{ShowModal}}">
+    <view>
+        <view class='qux'>请输入取消原因</view>
+        <textarea class='textfont' data-type='text' placeholder='请填写取消原因' bindinput='getText'></textarea>
+    </view>
+    <view class='butt'>
+        <view class='butttext textcolor' bindtap="onCancel">取消</view>
+        <view class='butttext textcolor1' bindtap='onConfirm'>提交</view>
+    </view>
+</view>
 <!-- 底部 -->
 <view style='width:100%;height:120rpx;'></view>
 <view class='fonter_head'>
-  <view class='fonter'>
-    <image src='../../imgs/order.png' bindtap='Newlyadded'></image>
-    <text> 新增订单</text>
-  </view>
-  <view class='fonter' >
-    <image src='../../imgs/list1.png'></image>
-    <text style='color:#2269d4'>订气订单</text>
-  </view>
-  <view class='fonter' bindtap='Repair'>
-    <image src='../../imgs/2222.png'></image>
-    <text>维修订单</text>
-  </view>
-  <view class='fonter' bindtap='Statistics'>
-    <image src='../../imgs/Statistics.png'></image>
-    <text>统计表单</text>
-  </view>
+    <view class='fonter'>
+        <image src='../../imgs/order.png' bindtap='Newlyadded'></image>
+        <text>新增订单</text>
+    </view>
+    <view class='fonter'>
+        <image src='../../imgs/list1.png'></image>
+        <text style='color:#2269d4'>订气订单</text>
+    </view>
+    <view class='fonter' bindtap='Repair'>
+        <image src='../../imgs/2222.png'></image>
+        <text>维修订单</text>
+    </view>
+    <view class='fonter' bindtap='Statistics'>
+        <image src='../../imgs/Statistics.png'></image>
+        <text>统计表单</text>
+    </view>
 </view>
