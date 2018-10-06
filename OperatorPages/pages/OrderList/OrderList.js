@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    navbar: ['全部订单', '系统订单','电话订单','取消订单'],
+    navbar: ['全部订单','待处理订单','取消订单'],
     currentTab: 0,
     waitconfirm:[
       {Price:'1200',Phone:'13325468900',CustomeId:'348867486123',Address:'龙泉区某某镇某某路',OrderType:'系统订单'},

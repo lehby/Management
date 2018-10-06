@@ -110,9 +110,6 @@ Page({
     this.setData({
       currentTab: e.currentTarget.dataset.idx
     })
-    if (this.data.currentTab == 1) {
-      this.repair()
-    }
   },
 
   //预约时间Picker索引值
@@ -818,7 +815,7 @@ Page({
       }
     }
     //********************************************维修订单信息*************************************//
-
+    this.repair()
   },
 
   /**

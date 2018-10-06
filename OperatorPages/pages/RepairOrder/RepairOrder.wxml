@@ -75,24 +75,6 @@
         </view>
     </view>
 </view>
-<view hidden="{{currentTab!==3}}">
-    <!-- 取消维修订单 -->
-    <view class="waitconfirm" wx:for="{{confirm}}" wx:for-item="item" wx:key="confirm" bindtap="onConfirmDetails">
-        <view class="waitconfirm_top">
-            <view>用气编号:{{item.CustomeId}}</view>
-            <view style="color:#0EBC8B;">{{item.OrderType}}</view>
-        </view>
-        <view class="waitconfirm_middle">
-            <view class="waitconfirm_middle_list">订单金额: ￥{{item.Price}}</view>
-            <view class="waitconfirm_middle_list">联系电话：{{item.Phone}}</view>
-            <view class="waitconfirm_middle_list">地址：{{item.Address}}</view>
-        </view>
-        <view class="waitconfirm_bottom">
-        <view class="waitconfirm_btn btn_color" bindtap='cancel'>取消</view>
-            <view class="waitconfirm_btn" bindtap='conflrm'>确定</view>
-        </view>
-    </view>
-</view>
 
 <!-- 底部 -->
 <view style='width:100%;height:120rpx;'></view>

@@ -1,11 +1,14 @@
-// pages/RepairOrder/RepairOrder.js
-Page({
+const utils = require("../../../utils/util.js")
+let app = getApp().globalData
+let { baseUrl } = getApp().globalData
+const RepairUrl = `${baseUrl}/Api/RepairOrders/GetRepairLabels` //获取维修订单列表
 
+Page({
   /**
    * 页面的初始数据
    */
   data: {
-    navbar: ['全部订单', '系统订单','电话订单','取消订单'],
+    navbar: ['全部订单', '待处理订单','取消订单'],
     currentTab: 0,
     waitconfirm:[
       {Price:'1200',Phone:'13325468900',CustomeId:'348867486123',Address:'龙泉区某某镇某某路',OrderType:'系统订单'},
@@ -61,6 +64,24 @@ Page({
       url: '/OperatorPages/pages/Statistics/Statistics',
     })
   },
+  // 获取维修订单列表
+  MaintenanceList:function(){
+
+
+    wx.request({
+      url: RepairUrl,
+      data: {
+        Sign: "",
+       
+      },
+      method: 'post',
+      // header: {}, // 设置请求的 header
+      success: function (res) {
+
+      }
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
