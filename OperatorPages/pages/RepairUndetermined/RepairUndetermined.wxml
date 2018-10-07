@@ -1,7 +1,12 @@
 <view class="head">
     <view class="Order_status_top">
         <view>订单状态</view>
-        <view style="color: #2168D3;">待确认</view>
+         <view style="color: #2168D3;" wx:if="{{Detail.Status==0}}">待处理</view>
+      <view style="color: #2168D3;" wx:elif="{{Detail.Status==10}}">确认订单</view>
+      <view style="color: #2168D3;" wx:elif="{{Detail.Status==11}}">分配完成</view>
+      <view style="color: #2168D3;" wx:elif="{{Detail.Status==20}}">维修出发</view>
+      <view style="color: #2168D3;" wx:elif="{{Detail.Status==30}}">维修完成</view>
+      <view style="color: #2168D3;" wx:else>取消订单</view>
     </view>
     <view class="Order_status_middle">
         <view class="middle_left">
@@ -11,32 +16,46 @@
         </view>
         <view class="middle_right">
             <view class="middle_right_top">
-                <view>张晓宏</view>
-                <view>13686982686</view>
+                <view>{{Detail.Contact}}</view>
+                <view>{{Detail.Phone}}</view>
             </view>
-            <view clase="middle_right_bottom">北京市朝阳区来广营东河西五街房管奥北中心五号楼1单元2504</view>
+            <view clase="middle_right_bottom">{{Detail.Address}}</view>
         </view>
     </view>
 </view>
 <view class="head">
     <view style="margin:20rpx 0rpx 20rpx 20rpx; font-size: 28rpx;border-bottom:2rpx solid #f5f5f5;">维修项目</view>
     <view class="RepairProblem">
-        <view class="Problem_box" data-index='{{index}}' wx:for="{{problemlist}}" wx:for-item="item" wx:key="problemlist" style="background-color: {{item.background}};color: {{item.color}};">
-            {{item.problem}}
-        </view>
+    <view class="Problem_box" wx:for="{{Detail.RepairLabels}}" wx:key="{{item}}" >{{item.Name}}</view>
     </view>
     <view class="describe">
         <view class="describelist">详情描述</view>
-        <view >打不找活打不找活打不找活打不找活打不找活打不找活打不找活打不找活打不找活</view>
+        <view >{{Detail.ProblemDescription}}</view>
     </view>
 </view>
 <view class="details">
-    <view>用气编号: 4657650676243</view>
-    <view>订单号: DD170721524848366</view>
-    <view>下单时间: 2018-08-23 11:23</view>
-    <view>订单金额: ￥9999</view>
+    <view>用气编号: {{Detail.CustomerGasNo}}</view>
+    <view>订单号: {{Detail.Serialnumber}}</view>
+    <view>下单时间: {{Detail.SubscribeTime}}</view>
+    <view>取消原因: {{Detail.OrderTracks[1].OperateExplain}}</view>
 </view>
-<view class="btnlist">
-    <view class="btn cancel">取消订单</view>
-    <view class="btn confirm">确认订单</view>
+<view class="btnlist" wx:if="{{Detail.Status==0}}">
+    <view class="btn cancel" bindtap='phoneList'>取消订单</view>
+    <view class="btn confirm" bindtap='conflrm'>确认订单</view>
+</view>
+<view wx:else> 
+</view>
+
+<!-- 取消意见 -->
+<view class="modal-mask" bindtap="HideModal" catchtouchmove="preventTouchMove" wx:if="{{ShowModal}}"></view>
+<view class="modal-dialog" wx:if="{{ShowModal}}">
+   <view>
+   <view class='qux'>请输入取消原因</view>
+   <textarea class='textfont' data-type='text' placeholder='请填写取消原因' bindinput='getdata'>
+   </textarea>
+   </view>
+   <view class='butt'>
+   <view class='butttext textcolor'bindtap="onCancel" >取消</view>
+   <view class='butttext textcolor1' bindtap='onConfirm'>提交</view>
+   </view>
 </view>
