@@ -17,10 +17,9 @@
     {
       "root": "DispatchedPages",
       "pages": [
-        "pages/Home/Home",
+        "pages/OrderList/OrderList",
         "pages/RepairOrder/RepairOrder",
         "pages/RepairDetails/RepairDetails",
-        "pages/OrderList/OrderList",
         "pages/Details/Details",
         "pages/Distribution/Distribution",
         "pages/Statistics/Statistics"

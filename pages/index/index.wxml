@@ -1,4 +1,4 @@
-<view class="Palace" wx:if="{{Duties==10}}">
+<view class="Palace" wx:if="{{Duties==20}}">
     <view class="box" bindtap="Operator" >
         <image src="../../imgs/136701990979310069.png" />
         <view >接线员</view>
@@ -10,7 +10,7 @@
         <view >收银员</view>
     </view>
 </view>
-<view class="Palace"  wx:elif="{{Duties==20}}">
+<view class="Palace"  wx:elif="{{Duties==10}}">
     <view class="box" bindtap="Dispatched" >
         <image src="../../imgs/335539362685932599.png" />
         <view >派单员</view>

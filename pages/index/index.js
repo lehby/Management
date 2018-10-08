@@ -33,7 +33,7 @@ Page({
   //派单员分包页面跳转
   Dispatched() {
     wx.redirectTo({
-      url: '/DispatchedPages/pages/Home/Home',
+      url: '/DispatchedPages/pages/OrderList/OrderList',
     })
   },
   //库管员分包页面跳转
