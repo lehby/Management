@@ -1,8 +1,7 @@
 //index.js
 //获取应用实例
 let app = getApp();
-let wechat = require("../../utils/wechat");
-let amap = require("../../utils/amap");
+let amap = require("../../../utils/amap.js");
 let markersData = [];
 Page({
   data: {
@@ -24,7 +23,7 @@ Page({
           width: 40,
           height: 40
         },
-        iconPath: "/images/circle1.png",
+        iconPath: "/DispatchedPages/images/circle1.png",
         clickable: true
       }
     ]
@@ -68,7 +67,7 @@ Page({
         console.log(d);
         let { markers } = d;
         markers.forEach(item => {
-          item.iconPath = "/images/marker.png";
+          item.iconPath = "/DispatchedPages/images/marker.png";
         })
         this.setData({ markers });
         this.showMarkerInfo(markers[0]);
@@ -92,8 +91,8 @@ Page({
   changeMarkerColor(markerId) {
     let { markers } = this.data;
     markers.forEach((item, index) => {
-      item.iconPath = "/images/marker.png";
-      if (index == markerId) item.iconPath = "/images/marker_checked.png";
+      item.iconPath = "/DispatchedPages/images/marker.png";
+      if (index == markerId) item.iconPath = "/DispatchedPages/images/marker_checked.png";
     })
     this.setData({ markers, markerId });
   },

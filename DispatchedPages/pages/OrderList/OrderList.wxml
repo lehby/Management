@@ -7,10 +7,10 @@
 <!-- 全部订单 -->
 <view hidden="{{currentTab!==0}}">
     <!-- 新单 -->
-    <view class="NewSingle" wx:for="{{NewSingle}}" wx:for-item="item" wx:key="NewSingle" bindtap="onDetails">
+    <view class="NewSingle" wx:for="{{AllOrders}}" wx:for-item="item" wx:key="AllOrders" bindtap="onDetails">
         <view class="NewSingle_top">
-            <view>用气编号: {{item.CustomeId}}</view>
-            <view style="color: #2269d4;">{{item.OrderType}}</view>
+            <view>用气编号: {{item.CustomerGasNo}}</view>
+            <view style="color: #2269d4;" wx:if="{{Status==10}}">新单</view>
         </view>
         <view class="NewSingle_middle">
             <view>预约时间: {{item.date}} {{item.time}}</view>
@@ -220,7 +220,7 @@
 <view class='fonter_head'>
   <view class='fonter' >
     <image src='../../imgs/gas1.png'></image>
-    <text style='color:#2269d4'>定气订单</text>
+    <text style='color:#2269d4'>订气订单</text>
   </view>
   <view>
   </view>

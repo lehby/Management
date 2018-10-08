@@ -1,4 +1,9 @@
-// pages/OrderList/OrderList.js
+let {
+  baseUrl
+} = getApp().globalData
+const baseUrls = `${baseUrl}/Api/GasOrders/GetProcessedOrders` //检查下单客户接口
+let app = getApp().globalData
+const utils = require("../../../utils/util.js")
 Page({
 
   /**
@@ -96,12 +101,55 @@ Page({
           }
         ]
       },
-    ]
+    ],
+    AllOrders:[],
+    pageIndex: 1,//当前页数，1代表第一页，以此类推
+    pageSize: 3,//每页返回的数据条数
+  },
+  //导航控制
+  navbarTap: function (e) {
+    this.setData({
+      currentTab: e.currentTarget.dataset.idx
+    })
+    let currentTab = this.data.currentTab
+    if (currentTab == 0) {
+      this.AllOrders()
+    } 
+  },
+  AllOrders() {//全部订单请求
+    let this_ = this
+    let pageIndex = this_.data.pageIndex;
+    let pageSize = this_.data.pageSize;
+    wx.request({
+      url: baseUrls,
+      data: {
+        sign:"",
+        pageIndex:pageIndex,
+        pageSize:pageSize,
+        userId:app.User.UserId,
+        enterpriseId:app.User.EnterpriseId,
+        orderStatus:10
+      },
+      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      // header: {}, // 设置请求的 header
+      success: function(res){
+        console.log(res.data.Data)
+        let data = res.data.Data
+        data.map(item => {//解密
+          utils.Decrypt(item.Price)
+          utils.Decrypt(item.Phone)
+          utils.Decrypt(item.Address)
+        })
+        this_.setData({
+          AllOrders:data
+        })
+      }
+    })
   },
   //配送工分配页面跳转
-  onDistribution(){
+  onDistribution() {
     wx.navigateTo({
-      url: '/pages/Distribution/Distribution',
+      url: '/DispatchedPages/pages/Distribution/Distribution',
     })
   },
   // 获取ipt分组名称值
@@ -227,24 +275,18 @@ Page({
   //派单跳转订单详情
   Details() {
     wx.navigateTo({
-      url: '/pages/Details/Details',
+      url: '/DispatchedPages/pages/Details/Details',
     })
   },
   //新单跳转订单详情
   onDetails() {
     wx.navigateTo({
-      url: '/pages/Details/Details',
-    })
-  },
-  //导航控制
-  navbarTap: function (e) {
-    this.setData({
-      currentTab: e.currentTarget.dataset.idx
+      url: '/DispatchedPages/pages/Details/Details',
     })
   },
 
   //底部跳转
-  Repair:function(){
+  Repair: function () {
     wx.redirectTo({
       url: '/DispatchedPages/pages/RepairOrder/RepairOrder',
     })
@@ -254,7 +296,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.AllOrders()
   },
 
   /**
