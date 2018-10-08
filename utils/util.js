@@ -101,6 +101,20 @@ function showError(err_msg, url) {
     }
   })
 }
+
+function imgpreview(data_evnt, imgarrs) {  //图片预览
+  //获取当前图片的下标
+  var index = data_evnt.currentTarget.dataset.index;
+  //所有图片
+  var imgs = imgarrs;
+  wx.previewImage({
+    //当前显示图片
+    current: imgs[index],
+    //所有图片
+    urls: imgs
+  })
+}
+
 module.exports = {
   formatTime: formatTime,
   Encryption: Encryption,
@@ -108,5 +122,6 @@ module.exports = {
   showError: showError,
   Format:Format,
   formatTime1: formatTime1,
-  formatLocation:formatLocation
+  formatLocation:formatLocation,
+  imgpreview: imgpreview
 }

@@ -59,7 +59,7 @@ Page({
             title: "确认成功",
             duration: 1000
           });
-          _this.TreatedList()
+          _thsi.TreatedList()
         }
       },
     })
@@ -255,7 +255,7 @@ Page({
           Waitconfirm[i].Contact = utils.Decrypt(Waitconfirm[i].Contact)
           Waitconfirm[i].Phone = utils.Decrypt(Waitconfirm[i].Phone)
           Waitconfirm[i].Address = utils.Decrypt(Waitconfirm[i].Address)
-          if (Waitconfirm[i].Status) {
+          if (Waitconfirm[i].Status==100) {
             cancellation.push(Waitconfirm[i])
           }
         }
@@ -270,7 +270,7 @@ Page({
  
 
   // 获取待处理订单
-  TreatedList: function() {
+  TreatedList(){
     let _this = this
     console.log(_this.data.Cancellation)
     let Size = _this.data.pageSize

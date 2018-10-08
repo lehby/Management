@@ -56,6 +56,8 @@
     margin-right: 40rpx;
     margin-top: 10rpx;
     margin-bottom: 10rpx;
+    background-color: rgb(50, 129, 231);
+    color: white;
 }
 .describe{
     /* height: 140rpx; */
