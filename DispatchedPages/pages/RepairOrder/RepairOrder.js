@@ -43,13 +43,13 @@ Page({
    //配送工分配页面跳转
    onDistribution(){
     wx.navigateTo({
-      url: '/pages/Distribution/Distribution',
+      url: '/DispatchedPages/pages/Distribution/Distribution',
     })
   },
   //跳转详情
   details(){
     wx.navigateTo({
-      url: '/pages/RepairDetails/RepairDetails',
+      url: '/DispatchedPages/pages/RepairDetails/RepairDetails',
     })
   },
   //导航控制
@@ -59,7 +59,7 @@ Page({
     })
   },
   //底部跳转
-  Repair: function () {
+  Booting: function () {
     wx.redirectTo({
       url: '/DispatchedPages/pages/OrderList/OrderList',
     })

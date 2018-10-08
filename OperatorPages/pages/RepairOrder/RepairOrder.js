@@ -168,7 +168,7 @@ Page({
       this.MaintenanceList()
     }
     if (e.currentTarget.dataset.idx == 2) {
-      this.cancellation()
+      this.MaintenanceList()
     }
   },
 
@@ -233,6 +233,8 @@ Page({
     let _this = this
     let Size = _this.data.pageSize
     let Index = _this.data.pageIndex
+    console.log(Size)
+    console.log(Index)
     wx.request({
       url: RepairUrl,
       data: {
@@ -261,20 +263,11 @@ Page({
           waitconfirm: Waitconfirm,
           Cancellation: cancellation
         })
+        wx.stopPullDownRefresh();
       }
     })
   },
-  // 取消订单
-  cancellation: function() {
-    this.MaintenanceList()
-    // let Cancellation = this.data.Cancellation
-    // let cancellingthecause=[]
-    // for (let j = 0; Cancellation.length > j; j++) {
-    //   if (Cancellation[j].OrderTracks.length>1){
-    //     cancellingthecause.push(Cancellation[j].OrderTracks[1])
-    //   }
-    // }
-  },
+ 
 
   // 获取待处理订单
   TreatedList: function() {
@@ -282,6 +275,8 @@ Page({
     console.log(_this.data.Cancellation)
     let Size = _this.data.pageSize
     let Index = _this.data.pageIndex
+    console.log(Size)
+    console.log(Index)
     wx.request({
       url: TreatedUrl,
       data: {
@@ -303,6 +298,7 @@ Page({
         _this.setData({
           confirm: Confirm
         })
+        wx.stopPullDownRefresh();
       }
     })
   },
