@@ -4,6 +4,8 @@ let {
 const baseUrls = `${baseUrl}/Api/GasOrders/GetProcessedOrders` //检查下单客户接口
 let app = getApp().globalData
 const utils = require("../../../utils/util.js")
+
+let Num = 2;
 Page({
 
   /**
@@ -19,10 +21,6 @@ Page({
     GroupName: "",
     //创建组
     CreateGroup: [
-      // {
-      //   GroupOrder: "1个订单",
-      //   GroupName: "某某组"
-      // },
     ],
     // PaymentItems: [//支付方式选择
     //   { name: '配送工1', vehicle: '三轮', checked: true },
@@ -102,9 +100,10 @@ Page({
         ]
       },
     ],
-    AllOrders:[],
+    AllOrders: [],
     pageIndex: 1,//当前页数，1代表第一页，以此类推
     pageSize: 3,//每页返回的数据条数
+    index: "",//分单点击事件索引值
   },
   //导航控制
   navbarTap: function (e) {
@@ -114,7 +113,36 @@ Page({
     let currentTab = this.data.currentTab
     if (currentTab == 0) {
       this.AllOrders()
-    } 
+    }
+  },
+  /**
+  * 页面相关事件处理函数--监听用户下拉动作
+  */
+  onPullDownRefresh() {
+    this.AllOrders()
+    wx.showToast({
+      title: "加载中",
+      icon: 'loading',
+      duration: 2000
+    });
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    let pageSize = this.data.pageSize;
+    this.setData({
+      pageIndex: Num,
+      pageSize: pageSize,
+    })
+    Num++
+    this.AllOrders()
+    wx.showToast({
+      title: "加载中",
+      icon: 'loading',
+      duration: 2000
+    });
   },
   AllOrders() {//全部订单请求
     let this_ = this
@@ -123,16 +151,16 @@ Page({
     wx.request({
       url: baseUrls,
       data: {
-        sign:"",
-        pageIndex:pageIndex,
-        pageSize:pageSize,
-        userId:app.User.UserId,
-        enterpriseId:app.User.EnterpriseId,
-        orderStatus:10
+        sign: "",
+        pageIndex: pageIndex,
+        pageSize: pageSize,
+        userId: app.User.UserId,
+        enterpriseId: app.User.EnterpriseId,
+        orderStatus: 10
       },
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
-      success: function(res){
+      success: function (res) {
         console.log(res.data.Data)
         let data = res.data.Data
         data.map(item => {//解密
@@ -140,11 +168,53 @@ Page({
           utils.Decrypt(item.Phone)
           utils.Decrypt(item.Address)
         })
-        this_.setData({
-          AllOrders:data
-        })
+        if (pageIndex > 1) {
+          console.log("多条")
+          let CreateGroup = this_.data.CreateGroup//分组数据
+          if (CreateGroup.length == 0) {//判断没分过组
+            console.log("1")
+            let data = this_.data.AllOrders
+            data = data.concat(res.data.Data)
+            this_.setData({
+              AllOrders: data
+            })
+          } else if (CreateGroup[0].GroupList.length > 0) {//判断分过组里面有数据
+            let CreateGroupID = []
+            for (let i = 0; i < CreateGroup.length; i++) {
+              for (let j = 0; j < CreateGroup[i].GroupList.length; j++) {
+                CreateGroupID.push(CreateGroup[i].GroupList[j].ID)
+              }
+            }
+            console.log(CreateGroupID, res.data.Data[0].ID)
+            if (this_.contains(CreateGroupID, res.data.Data[0].ID) == false) {
+              let data = this_.data.AllOrders
+              data = data.concat(res.data.Data)
+              this_.setData({
+                AllOrders: data
+              })
+            }
+          }
+        } else {
+          console.log("一条")
+          let CreateGroup = this_.data.CreateGroup//分组数据
+          if (CreateGroup.length == 0) {
+            console.log("3")
+            this_.setData({
+              AllOrders: data
+            })
+          }
+        }
       }
     })
+  },
+  //判断数组里是否包含了值
+  contains(GroupID, ID) {
+    for (let k = 0; k < GroupID.length; k++) {
+      if (GroupID[k] == ID) {
+        return true;
+      }
+    }
+    return false;
   },
   //配送工分配页面跳转
   onDistribution() {
@@ -161,11 +231,63 @@ Page({
       })
       let CreateGroup = this.data.CreateGroup;
       let obj = {};
-      obj.GroupName = this.data.GroupName
-      obj.GroupOrder = "1个订单"
+      obj.GroupList = []
+      obj.GroupName = this.data.GroupName;//分组名字
+      obj.GroupOrder = obj.GroupList.length + "个订单";
       CreateGroup.push(obj);
       this.setData({ CreateGroup })
     }
+  },
+  //分组添加订单点击事件
+  GroupAdd(e) {
+    console.log(e.currentTarget.dataset.index)
+    console.log(this.data.CreateGroup)
+    let idx = e.currentTarget.dataset.index//添加点击事件索引
+    let index = this.data.index//订单的索引
+    console.log(index)
+    let AllOrders = this.data.AllOrders
+    let CreateGroup = this.data.CreateGroup
+    let obj = {};
+    let arr = []
+    if (CreateGroup.length > 1) {
+      if (CreateGroup[idx].GroupList.length !== 0) {
+        console.log("多条")
+        CreateGroup[idx].GroupList.map(item => {
+          arr.push(item)
+        })
+        arr.push(AllOrders[index])
+        AllOrders.splice(index, 1)
+      } else {
+        arr.push(AllOrders[index])
+        AllOrders.splice(index, 1)
+      }
+      obj.GroupList = arr
+      obj.GroupName = CreateGroup[idx].GroupName;//分组名字
+      obj.GroupOrder = obj.GroupList.length + "个订单";
+      CreateGroup[idx] = obj
+    } else {
+      if (CreateGroup[0].GroupList.length !== 0) {
+        console.log("一条")
+        CreateGroup[0].GroupList.map(item => {
+          arr.push(item)
+        })
+        arr.push(AllOrders[index])
+        AllOrders.splice(index, 1)
+      } else {
+        arr.push(AllOrders[index])
+        AllOrders.splice(index, 1)
+      }
+      obj.GroupList = arr
+      obj.GroupName = CreateGroup[0].GroupName;//分组名字
+      obj.GroupOrder = obj.GroupList.length + "个订单";
+      CreateGroup[0] = obj
+    }
+    console.log(CreateGroup)
+    this.setData({
+      CreateGroup,
+      AllOrders
+    })
+    this.allotModal();
   },
   //保存分组点击事件
   onPreservation() {
@@ -205,8 +327,13 @@ Page({
   allotConfirm: function () {
     this.allotModal();
   },
-  //分组点击事件
-  allot() {
+  //分单点击事件
+  allot(e) {
+    let index = e.currentTarget.dataset.index
+    console.log(index)
+    this.setData({
+      index
+    })
     this.setData({
       allotModal: true,
     })
@@ -324,20 +451,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
 
   },
 
