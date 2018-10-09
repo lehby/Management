@@ -12,7 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    DivisionModal: false,//控制配送工弹框按钮
+    DivisionModal: false,//控制分单弹框按钮
     allotModal: false,//控制分单弹框按钮
     navbar: ['全部订单', '新单', '分组', '派单'],
     currentTab: 0,
@@ -104,6 +104,7 @@ Page({
     pageIndex: 1,//当前页数，1代表第一页，以此类推
     pageSize: 3,//每页返回的数据条数
     index: "",//分单点击事件索引值
+    Groupindex:"",//分组索引值
   },
   //导航控制
   navbarTap: function (e) {
@@ -289,6 +290,30 @@ Page({
     })
     this.allotModal();
   },
+  //移除分组里单的索引值
+  remove(e){
+    console.log(e.currentTarget.dataset.dex)
+    let dex=e.currentTarget.dataset.dex
+    console.log(dex)
+    let Groupindex=this.data.Groupindex
+    console.log(Groupindex)
+    let CreateGroup=this.data.CreateGroup
+    let AllOrders=this.data.AllOrders
+    console.log(CreateGroup[Groupindex].GroupList[dex])
+    AllOrders.unshift(CreateGroup[Groupindex].GroupList[dex])
+    CreateGroup[Groupindex].GroupList.splice([dex],1)
+    CreateGroup[Groupindex].GroupOrder = CreateGroup[Groupindex].GroupList.length + "个订单";
+    this.setData({
+      AllOrders,
+      CreateGroup
+    })
+  },
+  //获取分组的索引值
+  NewSingle(e){
+    console.log(e.currentTarget.dataset.d)
+    let Groupindex=e.currentTarget.dataset.d
+    this.setData({Groupindex})
+  },
   //保存分组点击事件
   onPreservation() {
     this.setData({
@@ -346,57 +371,6 @@ Page({
         Grouping: 2
       })
     }
-  },
-
-
-  // //配送工选项框点击事件
-  // PaymentChange: function (e) {
-  //   var checked = e.detail.value
-  //   var changed = {}
-  //   for (var i = 0; i < this.data.PaymentItems.length; i++) {
-  //     if (checked.indexOf(this.data.PaymentItems[i].name) !== -1) {
-  //       changed['PaymentItems[' + i + '].checked'] = true
-  //     } else {
-  //       changed['PaymentItems[' + i + '].checked'] = false
-  //     }
-  //   }
-  //   console.log(changed)
-  //   this.setData(changed)
-  // },
-
-
-  /**
-   * 配送工弹出框蒙层截断touchmove事件
-   */
-  preventTouchMove: function () {
-  },
-  /**
-   * 配送工隐藏模态对话框
-   */
-  DivisionModal: function () {
-    this.setData({
-      DivisionModal: false
-    });
-  },
-  /**
-   * 配送工对话框取消按钮点击事件
-   */
-  DivisionCancel: function () {
-    this.DivisionModal();
-  },
-  /**
-   * 配送工对话框确认按钮点击事件
-   */
-  DivisionConfirm: function () {
-    this.DivisionModal();
-  },
-  /**
-   * 配送工点击显示弹框
-   */
-  onDivision() {
-    this.setData({
-      DivisionModal: true,
-    })
   },
 
   //派单跳转订单详情

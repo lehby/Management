@@ -7,19 +7,23 @@
 <!-- 全部订单 -->
 <view hidden="{{currentTab!==0}}">
     <!-- 新单 -->
-    <view class="NewSingle" wx:for="{{AllOrders}}" wx:for-item="item" wx:key="AllOrders" bindtap="onDetails">
+    <view class="NewSingle" wx:for="{{AllOrders}}" wx:for-item="item" wx:key="AllOrders" bindtap="onDetails" data-id="{{item.ID}}">
         <view class="NewSingle_top">
             <view>用气编号: {{item.CustomerGasNo}}</view>
             <view style="color: #2269d4;" wx:if="{{item.Status==10}}">新单</view>
             <view style="color: #0EBC6C;" wx:elif="{{item.Status==11}}">派单</view>
         </view>
         <view class="NewSingle_middle">
-            <view wx:if="{{item.FormatSubscribeTime!==null}}">预约时间: {{item.FormatSubscribeTime}}</view>
+            <view wx:if="{{item.FormatSubscribeTime!==null}}">
+                预约时间: {{item.FormatSubscribeTime}}
+            </view>
             <view wx:else>预约时间: 立即出发</view>
             <view>配送地址: {{item.Address}}</view>
         </view>
         <view class="NewSingle_bottom">
-            <view style="background-color: #2269d4;" catchtap="allot" wx:if="{{item.Status==10}}" data-index="{{index}}">分单</view>
+            <view style="background-color: #2269d4;" catchtap="allot" wx:if="{{item.Status==10}}" data-index="{{index}}">
+                分单
+            </view>
         </view>
     </view>
     <!-- 添加分组弹框 -->
@@ -63,7 +67,7 @@
         </view>
     </view>
     <!-- 分单 -->
-    <view class="NewSingle" wx:for="{{CreateGroup}}" wx:for-item="item" wx:key="CreateGroup" >
+    <view class="NewSingle" wx:for="{{CreateGroup}}" wx:for-item="item" wx:key="CreateGroup" data-d="{{index}}" catchtap="NewSingle">
         <view class="NewSingle_top">
             <view>{{item.GroupName}}</view>
             <view style="color: #EFA604;">已分组</view>
@@ -73,35 +77,14 @@
             <view wx:if="{{in.FormatSubscribeTime==null}}">预约时间: 立即出发</view>
             <view wx:else>预约时间: {{in.FormatSubscribeTime}}</view>
             <view>配送地址: {{in.Address}}</view>
-            <view class="remove" bindtap="remove">移除分组</view>
+            <view class="remove" bindtap="remove" data-dex="{{index}}">移除分组</view>
         </view>
         <view class="NewSingle_bottom">
             <view style="background-color: #EFA604;" catchtap="onDistribution">派单</view>
         </view>
     </view>
-    <!-- 分单弹框
-    <view class="modal-mask" bindtap="DivisionModal" catchtouchmove="preventTouchMove" wx:if="{{DivisionModal}}"></view>
-    <view class="modal-dialog" wx:if="{{DivisionModal}}" style=" top:20%;">
-        <view class="modal-title"></view>
-        <view class="btn-Photograph">配送工</view>
-        <radio-group class="group" bindchange="PaymentChange">
-            <view class="label-2" wx:for="{{PaymentItems}}" wx:key="PaymentItems">
-                <label class="label-2-text" for="{{item.name}}">
-                    <text>{{item.name}}</text>
-                </label>
-                <label class="label-2-text" for="{{item.vehicle}}">
-                    <text>{{item.vehicle}}</text>
-                </label>
-                <radio id="{{item.name}}" value="{{item.name}}" checked="{{item.checked}}"></radio>
-            </view>
-        </radio-group>
-        <view class="modal-footer">
-            <view class="btn-cancel" bindtap="DivisionCancel">取消</view>
-            <view class="btn-confirm" bindtap="DivisionConfirm">确定</view>
-        </view>
-    </view> -->
     <!-- 已派单 -->
-    <view class="NewSingle" wx:for="{{Distribution}}" wx:for-item="item" wx:key="Distribution" bindtap="Details">
+    <view class="NewSingle" wx:for="{{Distribution}}" wx:for-item="item" wx:key="Distribution" bindtap="Details" data-id="{{item.ID}}">
         <view class="NewSingle_top">
             <view>用气编号: {{item.CustomeId}}</view>
             <view style="color: #0EBC6C;">已{{item.OrderType}}</view>
@@ -115,19 +98,23 @@
 <!-- 新单 -->
 <view hidden="{{currentTab!==1}}">
     <!-- 新单 -->
-    <view class="NewSingle" wx:for="{{AllOrders}}" wx:for-item="item" wx:key="AllOrders" bindtap="onDetails">
+    <view class="NewSingle" wx:for="{{AllOrders}}" wx:for-item="item" wx:key="AllOrders" bindtap="onDetails" data-id="{{item.ID}}">
         <view class="NewSingle_top">
             <view>用气编号: {{item.CustomerGasNo}}</view>
             <view style="color: #2269d4;" wx:if="{{item.Status==10}}">新单</view>
             <view style="color: #0EBC6C;" wx:elif="{{item.Status==11}}">派单</view>
         </view>
         <view class="NewSingle_middle">
-            <view wx:if="{{item.FormatSubscribeTime!==null}}">预约时间: {{item.FormatSubscribeTime}}</view>
+            <view wx:if="{{item.FormatSubscribeTime!==null}}">
+                预约时间: {{item.FormatSubscribeTime}}
+            </view>
             <view wx:else>预约时间: 立即出发</view>
             <view>配送地址: {{item.Address}}</view>
         </view>
         <view class="NewSingle_bottom">
-            <view style="background-color: #2269d4;" catchtap="allot" wx:if="{{item.Status==10}}" data-index="{{index}}">分单</view>
+            <view style="background-color: #2269d4;" catchtap="allot" wx:if="{{item.Status==10}}" data-index="{{index}}">
+                分单
+            </view>
         </view>
     </view>
     <!-- 添加分组弹框 -->
@@ -173,8 +160,8 @@
 </view>
 <!-- 分单 -->
 <view hidden="{{currentTab!==2}}">
-     <!-- 分单 -->
-    <view class="NewSingle" wx:for="{{CreateGroup}}" wx:for-item="item" wx:key="CreateGroup" >
+    <!-- 分单 -->
+    <view class="NewSingle" wx:for="{{CreateGroup}}" wx:for-item="item" wx:key="CreateGroup" data-d="{{index}}" catchtap="NewSingle">
         <view class="NewSingle_top">
             <view>{{item.GroupName}}</view>
             <view style="color: #EFA604;">已分组</view>
@@ -184,7 +171,7 @@
             <view wx:if="{{in.FormatSubscribeTime==null}}">预约时间: 立即出发</view>
             <view wx:else>预约时间: {{in.FormatSubscribeTime}}</view>
             <view>配送地址: {{in.Address}}</view>
-            <view class="remove" bindtap="remove">移除分组</view>
+            <view class="remove" bindtap="remove" data-dex="{{index}}">移除分组</view>
         </view>
         <view class="NewSingle_bottom">
             <view style="background-color: #EFA604;" catchtap="onDistribution">派单</view>
@@ -193,7 +180,7 @@
 </view>
 <!-- 已派单 -->
 <view hidden="{{currentTab!==3}}">
-    <view class="NewSingle" wx:for="{{Distribution}}" wx:for-item="item" wx:key="Distribution">
+    <view class="NewSingle" wx:for="{{Distribution}}" wx:for-item="item" wx:key="Distribution" data-id="{{item.ID}}">
         <view class="NewSingle_top">
             <view>用气编号: {{item.CustomeId}}</view>
             <view style="color: #0EBC6C;">已{{item.OrderType}}</view>
@@ -204,18 +191,16 @@
         </view>
     </view>
 </view>
-
 <!-- 底部 -->
 <view style='width:100%;height:120rpx;'></view>
 <view class='fonter_head'>
-  <view class='fonter' >
-    <image src='../../imgs/gas1.png'></image>
-    <text style='color:#2269d4'>订气订单</text>
-  </view>
-  <view>
-  </view>
-  <view class='fonter' bindtap='Repair'>
-    <image src='../../imgs/R.png'></image>
-    <text>维修订单</text>
-  </view>
+    <view class='fonter'>
+        <image src='../../imgs/gas1.png'></image>
+        <text style='color:#2269d4'>订气订单</text>
+    </view>
+    <view></view>
+    <view class='fonter' bindtap='Repair'>
+        <image src='../../imgs/R.png'></image>
+        <text>维修订单</text>
+    </view>
 </view>

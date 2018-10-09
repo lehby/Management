@@ -65,6 +65,3 @@
     <view>下单时间: 2018-08-23 11:23</view>
     <view>订单金额: ￥9999</view>
 </view>
-<view class="btnlist">
-    <view class="btn confirm">分单</view>
-</view>

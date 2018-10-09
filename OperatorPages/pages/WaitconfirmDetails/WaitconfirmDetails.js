@@ -1,5 +1,5 @@
 let { baseUrl } = getApp().globalData
-const baseUrls = `${baseUrl}/Api/GasOrders/GetOrderInfo`//获取全部订单列表接口
+const baseUrls = `${baseUrl}/Api/GasOrders/GetOrderInfo`//获取订单详情接口
 let app = getApp().globalData
 const Cancel = `${baseUrl}/Api/GasOrders/CancelOrder`//取消订单接口
 const Confirm = `${baseUrl}/Api/GasOrders/ReceiptOrder`//确认订单接口
