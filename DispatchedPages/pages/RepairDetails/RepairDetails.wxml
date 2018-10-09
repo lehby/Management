@@ -39,5 +39,5 @@
     <view>预约时间: {{Detail.FormatSubscribeTime}}</view>
 </view>
 <view class="btnlist">
-    <view class="btn confirm">派单</view>
+    <view class="btn confirm" bindtap='onDistribution'>派单</view>
 </view>

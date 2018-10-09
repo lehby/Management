@@ -19,10 +19,9 @@ Page({
     // 预览图片数组
     img: "",
     photo: "",//图片路径
-    imgs: []
+    imgs: [],
   },
-
-
+ 
   // 查询详情
   details() {
     let _this = this
@@ -62,7 +61,7 @@ Page({
   // 图片预览------------------------------
   previewImg: function (e) {
     var data_evnt = e; //将函数事件对象传入 ，以及图片获取到的数组 
-    util.imgpreview(data_evnt, this.data.imgs)
+    utils.imgpreview(data_evnt, this.data.imgs)
   },
   // 图片路径拼接
   imgs(imglist) {
@@ -76,6 +75,13 @@ Page({
     })
   },
 
+
+  //配送工分配页面跳转
+  onDistribution() {
+    wx.navigateTo({
+      url: '/DispatchedPages/pages/Distribution/Distribution',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

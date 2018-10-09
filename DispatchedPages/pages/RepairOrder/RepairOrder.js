@@ -62,11 +62,11 @@ Page({
       method: 'GET',
       // header: {}, // 设置请求的 header
       success: function(res) {
-        let Waitcon = _this.data.SendOut
+        // let Waitcon = _this.data.SendOut
         let Waitconfirm = res.data.Data
         console.log(Waitconfirm)
         // 数组拼接
-        Waitcon=Waitcon.concat(Waitconfirm)
+        // Waitcon=Waitcon.concat(Waitconfirm)
 
         for (let i = 0; Waitconfirm.length > i; i++) {
           Waitconfirm[i].Contact = utils.Decrypt(Waitconfirm[i].Contact)
@@ -75,7 +75,7 @@ Page({
           Waitconfirm[i].SubscribeTime = Waitconfirm[i].SubscribeTime.replace('T', ' ')
         }
         _this.setData({
-          SendOut: Waitcon
+          SendOut: Waitconfirm
         })
         // 停止下拉动作
         wx.stopPullDownRefresh();
@@ -113,7 +113,7 @@ Page({
       return false
     }
     page++
-    let Sizes = Size
+    let Sizes = Size+a
     _this.setData({
       pageIndex: page,
       pageSize: Sizes
@@ -126,40 +126,12 @@ Page({
     });
   },
 
- dd(){
-   let a = [{
-     name: "程咬金",
-     sex: "1",
-     age: 26
-   },
-   {
-     name: "11",
-     sex: "0",
-     age: 20
-   },
-   {
-     name: "程新松",
-     sex: "1",
-     age: 22
-   },
-   {
-     name: "11",
-     sex: "1",
-     age: 18
-   }
-   ];
-   var new_data = JSON.stringify(a, ['name', 'sex']);
-   console.log(new_data);
-
-
- },
  
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     this.Distributeleaflets()
-    this.dd()
   },
 
   /**
